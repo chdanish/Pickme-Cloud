@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: demo.ApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 42.803 sec <<< FAILURE! - in demo.ApplicationTests
+authorizationRedirects(demo.ApplicationTests)  Time elapsed: 0.052 sec  <<< FAILURE!
+java.lang.AssertionError: Wrong header: http://localhost:9999/uaa/login
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.assertTrue(Assert.java:41)
+	at demo.ApplicationTests.authorizationRedirects(ApplicationTests.java:64)
+
+loginSucceeds(demo.ApplicationTests)  Time elapsed: 4.429 sec  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<...localhost:50651/uaa/[]> but was:<...localhost:50651/uaa/[login?error]>
+	at org.junit.Assert.assertEquals(Assert.java:115)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at demo.ApplicationTests.loginSucceeds(ApplicationTests.java:83)
+

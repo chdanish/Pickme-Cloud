@@ -25,7 +25,7 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint
 	protected final Log logger = LogFactory.getLog(getClass());
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
-	private static final String proxyhosturl = Propertiesimport.getPrx();
+	/*private static final String proxyhosturl = Propertiesimport.getPrx();*/
 
     private static String proxyHosturl2 = "";
 

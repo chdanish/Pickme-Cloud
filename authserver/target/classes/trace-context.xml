@@ -21,6 +21,6 @@
 
 	<aop:config>
 	  <aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * so.pickme.service..*(..))"/>
-	  <aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * so.pickme.config..*(..))"/>
+	  <aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * so.pickme.Controller..*(..))"/>
 	</aop:config>
 </beans>

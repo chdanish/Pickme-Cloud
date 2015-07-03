@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.neo4j.repository.RelationshipOperationsRepository;
 import org.springframework.data.neo4j.repository.SchemaIndexRepository;
 import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.CrudRepository;
 
 import so.pickme.domain.User;

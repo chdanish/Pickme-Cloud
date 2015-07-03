@@ -1,6 +1,7 @@
 package so.pickme.domain;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,7 +45,7 @@ public class User {
 	private String password;
 	
 	@RelatedTo(direction = Direction.BOTH)
-    private Set<String> role;
+    private Set<String> role = new HashSet<String>();
 	
 	@Fetch
 	@RelatedTo(type="FRIEND", direction=Direction.BOTH)
@@ -157,6 +158,7 @@ public class User {
 
 
 	public void setRole(String role) {
+		
 		this.role.add(role);
 	}
 	
