@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import so.pickme.common.exception.XhrcException;
 import so.pickme.common.exception.XhrcRuntimeException;
@@ -22,6 +23,7 @@ import so.pickme.service.BaseService;
 import com.alibaba.fastjson.JSON;
 
 @Service("baseService")
+@Transactional
 public class BaseServiceImpl implements BaseService {
 	private static Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
 

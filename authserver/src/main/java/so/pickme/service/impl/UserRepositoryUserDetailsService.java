@@ -20,6 +20,7 @@ package so.pickme.service.impl;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,6 +42,7 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
 	private final UserRepository userRepository;
 
 	@Autowired
+	@Lazy
 	public UserRepositoryUserDetailsService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
@@ -64,6 +66,11 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
 	
 	@Transactional(timeout=500)
 	private final static class CustomUserDetails extends User implements UserDetails {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -8702171852166743686L;
 
 		private CustomUserDetails(User user) {
 			super(user);
@@ -93,6 +100,6 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
 			return true;
 		}
 
-		private static final long serialVersionUID = 5639683223516504866L;
+		
 	}
 }

@@ -3,6 +3,10 @@ package so.pickme.authserver;
 import java.security.KeyPair;
 import java.security.Principal;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.google.common.collect.Lists;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +29,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.stereotype.Controller;
@@ -32,12 +38,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+
 
 
 
 
 
 import so.pickme.utils.Propertiesimport;
+
+import org.springframework.security.core.userdetails.UserDetails;
 
 @SpringBootApplication
 @Controller
@@ -48,10 +61,14 @@ import so.pickme.utils.Propertiesimport;
 public class AuthserverApplication extends WebMvcConfigurerAdapter {
 
 	@RequestMapping("/user")
-	@ResponseBody
-	public Principal user(Principal user) {
-		return user;
-	}
+		@ResponseBody
+		public Principal user(Principal user) {
+			return user;
+		}
+	
+	
+	
+	
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
@@ -69,6 +86,9 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 
 		@Autowired
 		private AuthenticationManager authenticationManager;
+		
+		@Autowired
+		SampleAuthenticationManager sampleAuthenticationManager;
 		
 		
 		@Autowired
@@ -88,6 +108,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 			.and()
 				.formLogin().loginPage("/login").permitAll()
 				.successHandler(new CustomAuthenticationHandler())
+				.failureUrl("http://localhost:8080/uaa/login")
 			.and()
 				.requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
 			.and()
@@ -98,11 +119,18 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 		@Autowired
 		UserDetailsService userDetailsService;
 		
+		
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			auth
+		/*	.parentAuthenticationManager(authentication -> new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),
+					authentication.getCredentials(), Lists.newArrayList(new SimpleGrantedAuthority("USER_ROLE"))));*/
+
+			.parentAuthenticationManager(sampleAuthenticationManager)
 			.userDetailsService(userDetailsService)
-				.passwordEncoder(new BCryptPasswordEncoder());
+				.passwordEncoder(new BCryptPasswordEncoder())
+			
+				;
 		}
 	}
 
@@ -136,7 +164,8 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
 				throws Exception {
-			endpoints.authenticationManager(authenticationManager).accessTokenConverter(
+			endpoints
+			.authenticationManager(authenticationManager).accessTokenConverter(
 					jwtAccessTokenConverter());
 		}
 
