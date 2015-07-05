@@ -2,8 +2,16 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/wro.css"/>
-<script>
-</script>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+<!-- <script>
+    $(document).bind("mobileinit", function(){
+      $.mobile.ajaxEnabled = false;
+    });
+</script> -->
 </head>
 <body ng-app="hello" ng-cloak class="ng-cloak"><body>
 <#if RequestParameters['error']??>
@@ -18,7 +26,7 @@
 		</ul>
 	
 		<div ng-show="tab.isSet(1)">
-             <form role="form" action="login" method="post">
+             <form role="form" action="login" method="post" data-ajax="false">
 			  <div class="form-group">
 			    <label for="username">Username:</label>
 			    <input type="text" class="form-control" id="username" name="username"/>
@@ -69,14 +77,19 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">Password:</label>
 			    <div class="col-sm-10">
-			    <input type="password" ng-model="passw1" placeholder="Password">
+			    <input type="password" id="pw1" name="pw1"   ng-model="pw1" placeholder="Password" ng-required/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">Repeat:</label>
 			    <div class="col-sm-10">
-			    <input type="password" ng-model="passw2" placeholder="Repeat Password">
+			    <input type="password" id="pw2" name="pw2" ng-model="pw2" placeholder="Repeat Password" ng-required pw-check="pw1"/>
 			    </div>
+			    <div class="msg-block" ng-show="myForm.$error">
+				  <span style="color:red" class="msg-error" ng-show="myForm.pw2.$error.pwmatch">
+				    Passwords don't match.
+				  </span>
+				</div>
 			  </div>
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">Role:</label>
@@ -93,8 +106,8 @@
         </div>
 
 	</div>
-	<script src="js/wro.js" type="text/javascript"></script>
-	<script src="staticjs/angular-bootstrap.js" type="text/javascript"></script>
+<!-- 	<script src="js/wro.js" type="text/javascript"></script>
+	<script src="staticjs/angular-bootstrap.js" type="text/javascript"></script> -->
 	<script src="staticjs/hello.js"></script>
 </body>
 </html>

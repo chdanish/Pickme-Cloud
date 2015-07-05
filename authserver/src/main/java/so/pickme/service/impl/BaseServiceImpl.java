@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,9 @@ public class BaseServiceImpl implements BaseService {
 
 	@Resource
 	private Neo4jOperations template;
+	
 	@Autowired
+	@Lazy
 	private UserRepository userRepository;
 	
 

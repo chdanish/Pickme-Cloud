@@ -30,6 +30,9 @@ zuul:
     uaa5:
       path: /uaa/
       url: http://localhost:9999/uaa/
+    uaa6:
+      path: /uaa/staticjs/**
+      url: http://localhost:9999/uaa/staticjs
 spring:
   oauth2:
     sso:

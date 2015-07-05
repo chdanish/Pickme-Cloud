@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import so.pickme.common.exception.XhrcException;
-import so.pickme.domain.User;
 import so.pickme.repository.UserRepository;
 import so.pickme.response.SignupDTO;
 import so.pickme.service.BaseService;

@@ -1,10 +1,10 @@
 var app = angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
 
-	$routeProvider.when('/', {
+	/*$routeProvider.when('/', {
 		templateUrl : 'login',
-		controller : 'login'
+		controller : 'navigation'
 	})
-	.otherwise('/');
+	.otherwise('uaa/login');*/
 	
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -46,7 +46,7 @@ function($rootScope, $scope, $http, $location, $route ,$window, $routeParams) {
 	    
 	    $scope.submit = function() {
 	    	
-	    	 var SignupDTO = { firstName: $scope.fName, lastName: $scope.lName, username: $scope.uName, password: $scope.passw1, email: $scope.email,role : $scope.role};
+	    	 var SignupDTO = { firstName: $scope.fName, lastName: $scope.lName, username: $scope.uName, password: $scope.pw2, email: $scope.email,role : $scope.role};
 	    	 $window.alert($scope.fName+" " + $scope.lName);
 	    	 $http.post('signup/register', SignupDTO).success(function() {
 	    		 this.tab = 1;
@@ -62,4 +62,48 @@ function($rootScope, $scope, $http, $location, $route ,$window, $routeParams) {
 		$scope.greeting = data;
 	})
 });
+
+
+ 
+app.directive('pwCheck', [function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+          var firstPassword = '#' + attrs.pwCheck;
+          elem.add(firstPassword).on('keyup', function () {
+            scope.$apply(function () {
+              var v = elem.val()===$(firstPassword).val();
+              ctrl.$setValidity('pwmatch',elem.val() === scope[attrs.pwCheck]);
+            });
+          });
+        }
+      }
+    }]);
+
+
+//-Debug Code Starts here-------------------------------------------------------------------------
+
+app.run([
+        '$rootScope',
+        function($rootScope) {
+          // see what's going on when the route tries to change
+          $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+            // both newUrl and oldUrl are strings
+            console.log('locationChangeStart--Starting to leave %s to go to %s', oldUrl, newUrl);
+          });
+        }
+      ]);
+app.run([
+	    '$rootScope', '$location', function ($rootScope, $location)  {
+	      // see what's going on when the route tries to change
+	      $rootScope.$on('$routeChangeStart', function(event, current, next, rejection) {
+	        // next is an object that is the route that we are starting to go to
+	        // current is an object that is the route where we are currently
+	        var currentPath = current.$$route.originalPath;
+	        var nextPath = next.$$route.originalPath;
+	
+	        console.log('routeChangeStart--Starting to leave %s to go to %s', currentPath, nextPath);
+	      });
+	    }
+	  ]);
 
