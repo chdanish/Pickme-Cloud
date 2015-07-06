@@ -43,7 +43,9 @@ public class User {
 	@NotEmpty(message = "Password is required.")
 	private String password;
 	
-	@RelatedTo(type="ROLE", direction = Direction.BOTH)
+	/*@RelatedTo(type="ROLE", direction = Direction.BOTH)*/
+	@NotEmpty(message = "Role is must required.")
+	@Column(nullable = false)
     private Set<String> role = new HashSet<String>();
 	
 	@Fetch

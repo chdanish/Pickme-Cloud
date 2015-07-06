@@ -87,8 +87,8 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 		@Autowired
 		private AuthenticationManager authenticationManager;
 		
-		@Autowired
-		SampleAuthenticationManager sampleAuthenticationManager;
+		/*@Autowired
+		SampleAuthenticationManager sampleAuthenticationManager;*/
 		
 		
 		@Autowired
@@ -126,9 +126,9 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 		/*	.parentAuthenticationManager(authentication -> new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),
 					authentication.getCredentials(), Lists.newArrayList(new SimpleGrantedAuthority("USER_ROLE"))));*/
 
-			.parentAuthenticationManager(sampleAuthenticationManager)
-			.userDetailsService(userDetailsService)
-				.passwordEncoder(new BCryptPasswordEncoder())
+			.parentAuthenticationManager(authenticationManager)
+			/*.userDetailsService(userDetailsService)
+				.passwordEncoder(new BCryptPasswordEncoder())*/
 			
 				;
 		}

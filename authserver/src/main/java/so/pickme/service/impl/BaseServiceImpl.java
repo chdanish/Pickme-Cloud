@@ -54,8 +54,8 @@ public class BaseServiceImpl implements BaseService {
 		uNode.setEmail(dto.getLastName());
 		uNode.setUsername(dto.getUsername());
 		uNode.setRole(dto.getRole());
-		uNode.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
-		
+		System.out.println("Role recieved from DTO"+dto.getRole()+"Role recieved from User"+uNode.getRole());
+		uNode.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));	
 		uNode.setCreatedAt(Calendar.getInstance().getTime());
 		uNode = saveUserNode(uNode);
 		if (uNode == null || uNode.getId() == null || uNode.getId() <= 0 || uNode.getId() == null

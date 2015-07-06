@@ -33,6 +33,9 @@ zuul:
     uaa6:
       path: /uaa/staticjs/**
       url: http://localhost:9999/uaa/staticjs
+    uaa7:
+      path: /uaa/signup/register/**
+      url: http://localhost:9999/uaa/signup/register
 spring:
   oauth2:
     sso:

@@ -1,4 +1,4 @@
-package so.pickme.authserver;
+/*package so.pickme.authserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,3 +29,4 @@ class SampleAuthenticationManager implements AuthenticationManager {
 	      throw new BadCredentialsException("Bad Credentials");
 	  }
 	}
+*/
