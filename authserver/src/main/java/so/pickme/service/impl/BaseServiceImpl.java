@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import so.pickme.common.exception.XhrcException;
 import so.pickme.common.exception.XhrcRuntimeException;
-import so.pickme.domain.User;
+import so.pickme.replica.domain.User;
 import so.pickme.repository.UserRepository;
 import so.pickme.response.SignupDTO;
 import so.pickme.service.BaseService;

@@ -19,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import so.pickme.domain.User;
+import so.pickme.replica.domain.User;
 import so.pickme.repository.UserRepository;
 import so.pickme.service.AuthMgrService;
 
