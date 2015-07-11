@@ -1,17 +1,37 @@
-angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
+var app =angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
 
 	$routeProvider.when('/', {
 		templateUrl : 'home.html',
 		controller : 'home'
-	}).otherwise('/');
+	}).otherwise({
+	    controller : function(){
+	        window.location.replace('/');
+	    }, 
+	    template : "<div></div>"
+	});
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+	
+	
 
-}).controller('navigation',
+});
 
-function($rootScope, $scope, $http, $location, $route) {
+app.factory('superCache', ['$cacheFactory', function($cacheFactory) {
+    return $cacheFactory('super-cache');
+  }])
+.controller('navigation',
 
+function($rootScope, $scope, $http, $location, $route, $cacheFactory,$window ,superCache) {
+
+
+	  superCache.removeAll();
+	
+	
 	$scope.tab = function(route) {
+		/*$window.alert("route current: "+$route.current);
+		$window.alert("route current controller: "+$route.current.controller);*/
+		console.log("route current: "+$route.current);
+		console.log("route current controller: "+$route.current.controller);
 		return $route.current && route === $route.current.controller;
 	};
 
@@ -42,3 +62,4 @@ function($rootScope, $scope, $http, $location, $route) {
 		$scope.greeting = data;
 	})
 });
+
