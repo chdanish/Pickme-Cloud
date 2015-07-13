@@ -1,4 +1,4 @@
-/*package demo;
+package so.pickme.ui.proxy;
 
 import java.io.IOException;
 
@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.security.oauth2.sso.EnableOAuth2Sso;
 import org.springframework.cloud.security.oauth2.sso.OAuth2SsoConfigurerAdapter;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -24,6 +25,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
 @SpringBootApplication
+@ComponentScan({ "so.pickme" })
 @EnableZuulProxy
 @EnableOAuth2Sso
 public class UiApplication {
@@ -44,10 +46,10 @@ public class UiApplication {
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			
-			.and()
+			/*.and()
 			.authorizeRequests()
 			.antMatchers("/uaa","/uaa/**","/oauth","/oauth/**","/token","/token/**","/authorize","/authorize/**").anonymous().anyRequest().permitAll()
-			.and()
+			.and()*/
 			
 			http.logout().and().antMatcher("/**").authorizeRequests()
 			.antMatchers("/index.html", "/home.html", "/", "/css/**","/js/**","/login","/uaa","/uaa/**","/oauth","/oauth/**","/token","/token/**","/authorize","/authorize/**","/uaa/login","/uaa/login/**").permitAll()
@@ -88,4 +90,3 @@ public class UiApplication {
 	}
 
 }
-*/
