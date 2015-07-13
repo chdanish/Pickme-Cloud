@@ -1,4 +1,4 @@
-<!-- Authenticated Navbar -->
+<!-- Authenticated Navbar  not compiled-->
 <div  data-role="navbar" ng-show="authenticated" >
 		<ul>
 			<li><a href="#">New Route</a></li>
