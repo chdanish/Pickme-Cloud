@@ -1,4 +1,4 @@
-var app =angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
+var app =angular.module('hello', [ 'ngRoute','ngCookies' ]).config(function($routeProvider,$cookiesProvider, $httpProvider) {
 
 	$routeProvider
 	.when('/home', {
@@ -9,70 +9,69 @@ var app =angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, 
 		templateUrl : 'route',
 		controller : 'route'
 	})
-	/*.otherwise('/')*/
-	;
-	
+	.otherwise('/');
+
 	/*.otherwise({
 	    redirectTo: '/home'
 	  });*/
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-	
-	
-	
-	
-
 });
+
+
+
 
 app.factory('superCache', ['$cacheFactory', function($cacheFactory) {
     return $cacheFactory('super-cache');
   }])
-.controller('navigation',function($rootScope, $scope, $http, $location, $route, $cacheFactory,$window ,superCache) {
-
+.controller('navigation', function($rootScope, $scope, $http, $location, $route, $cacheFactory, $window , $cookies ,superCache) {
 
 	  superCache.removeAll();
+	  
+	  var JSESSIONID = $cookies.get('JSESSIONID');
+	  // Setting a cookie
+	  $cookies.put('JSESSIONID', '');
 	
-	
-/*	$scope.tab = function(route) {
-		$window.alert("route current: "+$route.current);
-		$window.alert("route current controller: "+$route.current.controller);
-		console.log("route current: "+$route.current);
-		console.log("route current controller: "+$route.current.controller);
-		return $route.current && route === $route.current.controller;
-	};*/
 
 	$http.get('user').success(function(data) {
 		if (data.name) {
 			$rootScope.authenticated = true;
 		} else {
+			$window.location.href='/login';
 			$rootScope.authenticated = false;
 		}
 	}).error(function() {
+		$window.location.href='/login';
 		$rootScope.authenticated = false;
 	});
 
 	$scope.credentials = {};
 
-	$scope.logout = function() {
-		$http.post('logout', {}).success(function() {
-			$rootScope.authenticated = false;
-			$location.path("/");
-		}).error(function(data) {
-			console.log("Logout failed")
-			$rootScope.authenticated = false;
-		});
-	}
+
+		
+		 $scope.logout = function() {
+			  $http.post('logout', {}).success(function() {
+			    $rootScope.authenticated = false;
+			    $window.location.href='/';
+			  }).error(function(data) {
+			    $rootScope.authenticated = false;
+			  });
+			}
+	
+	
+	
+	
+	
 
 }).controller('home', function($scope, $http) {
 	$http.get('resource/').success(function(data) {
 		$scope.greeting = data;
 	})
-}).controller('route', function($scope, $http) {
-	$http.get('resource/').success(function(data) {
-		$scope.routedata = data;
-	})
+}).controller('logout',  ['$cookies', '$scope', function($scope, $cookies, $http) {
 	
-});
+	var favoriteCookiex = $cookies.get('JSESSIONID');
+	
+}]);
 
 
 
@@ -103,3 +102,5 @@ app.run([
 	    }
 	  ]);*/
 
+/* angular redirection http://en.proft.me/2014/08/1/how-work-location-url-javascript-jquery-angularjs/
+*/

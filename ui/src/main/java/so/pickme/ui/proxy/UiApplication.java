@@ -9,7 +9,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.security.oauth2.sso.EnableOAuth2Sso;
@@ -21,10 +23,15 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @SpringBootApplication
+@EnableRedisHttpSession
+@EnableAutoConfiguration
 @ComponentScan({ "so.pickme" })
 @EnableZuulProxy
 @EnableOAuth2Sso
@@ -37,6 +44,9 @@ public class UiApplication {
 	@Configuration
 	protected static class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
 		
+		/*@Autowired
+		Logouthdlr logoutHandler;*/
+		
 		@Override
 		public void match(RequestMatchers matchers) {
 			matchers.antMatchers("/uaa","/uaa/**","/oauth","/oauth/**","/token","/token/**","/authorize","/authorize/**","/uaa/login","/uaa/login/**", "/css/**","/js/**");
@@ -45,13 +55,14 @@ public class UiApplication {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
+		
 			
-			/*.and()
-			.authorizeRequests()
-			.antMatchers("/uaa","/uaa/**","/oauth","/oauth/**","/token","/token/**","/authorize","/authorize/**").anonymous().anyRequest().permitAll()
-			.and()*/
-			
-			http.logout().and().antMatcher("/**").authorizeRequests()
+			http
+			.logout().deleteCookies("JSESSIONID","SESSION","XSRF-TOKEN").invalidateHttpSession(false).logoutSuccessUrl("/")
+			/*.deleteCookies("JSESSIONID").deleteCookies("XSRF-TOKEN")*/
+			/*.addLogoutHandler(logoutHandler)*/
+			.and()
+			.antMatcher("/**").authorizeRequests()
 			.antMatchers("/index.html", "/home.html", "/", "/css/**","/js/**","/login","/uaa","/uaa/**","/oauth","/oauth/**","/token","/token/**","/authorize","/authorize/**","/uaa/login","/uaa/login/**").permitAll()
 			.anyRequest().authenticated().and().csrf()
 			.csrfTokenRepository(csrfTokenRepository()).and()

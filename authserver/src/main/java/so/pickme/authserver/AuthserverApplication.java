@@ -25,15 +25,19 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 import so.pickme.utils.Propertiesimport;
 
 @SpringBootApplication
+@EnableRedisHttpSession
 @Controller
 @ComponentScan({ "so.pickme" })
 @ImportResource({"classpath:trace-context.xml"})
@@ -86,6 +90,8 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 			// @formatter:off
 			http
 			.exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint())
+			.and()
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logoutall")).invalidateHttpSession(true)
 			.and()
 				.formLogin().loginPage("/login").permitAll()
 				.successHandler(new CustomAuthenticationHandler())

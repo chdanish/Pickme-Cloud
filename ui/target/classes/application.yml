@@ -1,9 +1,10 @@
 debug:
 security:
+  sessions: ALWAYS
   user:
     name: user
     password: password
-  ignored: /,/css/**,/js/**,/uaa,/uaa/**,/uaa/**/**,/uaa/**/**/**,/**/*.html
+  ignored: /,/css/**,/js/**,/uaa,/uaa/**,/uaa/**/**,/uaa/**/**/**,/**/*.html,/logoutall
 zuul:
   routes:
     resource:
@@ -11,31 +12,34 @@ zuul:
       url: http://localhost:9000/resource
     user:
       path: /user/**
-      url: http://localhost:9999/uaa/user
+      url: http://localhost:9998/uaa/user
     uaa:
       path: /uaa/oauth/authorize/**
-      url: http://localhost:9999/uaa/oauth/authorize
+      url: http://localhost:9998/uaa/oauth/authorize
     uaa1:
       path: /uaa/login/**
-      url: http://localhost:9999/uaa/login
+      url: http://localhost:9998/uaa/login
     uaa2:
-      path: /uaa/oauth/token/**
-      url: http://localhost:9999/uaa/oauth/token
+      path: /logoutall
+      url: http://localhost:9998/uaa/
     uaa3:
-      path: /uaa/css/**
-      url: http://localhost:9999/uaa/css
+      path: /uaa/oauth/token/**
+      url: http://localhost:9998/uaa/oauth/token
     uaa4:
-      path: /uaa/js/**
-      url: http://localhost:9999/uaa/js
+      path: /uaa/css/**
+      url: http://localhost:9998/uaa/css
     uaa5:
-      path: /uaa/
-      url: http://localhost:9999/uaa/
+      path: /uaa/js/**
+      url: http://localhost:9998/uaa/js
     uaa6:
-      path: /uaa/staticjs/**
-      url: http://localhost:9999/uaa/staticjs
+      path: /uaa/
+      url: http://localhost:9998/uaa/
     uaa7:
+      path: /uaa/staticjs/**
+      url: http://localhost:9998/uaa/staticjs
+    uaa8:
       path: /uaa/signup/register/**
-      url: http://localhost:9999/uaa/signup/register
+      url: http://localhost:9998/uaa/signup/register
 spring:
   oauth2:
     sso:

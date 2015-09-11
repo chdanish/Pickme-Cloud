@@ -22,7 +22,7 @@
  
 <title th:text="#{login.title}">Sign in</title>
 <!--<link href="boilerplate.css" rel="stylesheet" type="text/css">-->
-<link rel="stylesheet" href="../../../resources/css/jquery.mobile-1.4.5.min.css" th:href="@{/resources/css/jquery.mobile-1.4.5.min.css}" />
+<link href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css}" />
 
 
@@ -43,8 +43,8 @@ Do the following if you're using your customized build of modernizr (http://www.
 <![endif]-->
 
 
-<script th:src="@{http://code.jquery.com/jquery-1.11.2.min.js}"></script>
-<script th:src="@{http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js}"></script>
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <!-- popup for the new map adjusts size & position from here -->
 <script th:src="@{http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js}"></script>
 
@@ -60,7 +60,7 @@ Do the following if you're using your customized build of modernizr (http://www.
 <script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyAJIUO25e0eVzDR2ZSOfU8Bl8XVOdl3jk4}">
   </script>
  
-<script th:inline="javascript">
+<script>
 /* save route script ends here */
  
  // <![CDATA[
@@ -592,22 +592,22 @@ function sendFriendRequest(id){
         }
 		
 		function placeMarker(location,markercount) {
-		  var marker = new google.maps.Marker({
-			position: location,
-			map: map,
-		  });
-		  markers.push(marker);
-		  
-		 
-		  if(markercount==1){
-			  startlatmap = location.lat();
-		  	  startlongmap = location.lng();
-		 }
-		 if(markercount==2){
-			 destlatmap = location.lat();
-			 destlongmap = location.lng();
-			
-		}
+				var marker = new google.maps.Marker({
+					position: location,
+					map: map,
+				});
+				markers.push(marker);
+
+
+				if(markercount==1){
+					startlatmap = location.lat();
+					startlongmap = location.lng();
+				}
+				if(markercount==2){
+					destlatmap = location.lat();
+					destlongmap = location.lng();
+
+				}
 		  var infowindow = new google.maps.InfoWindow({
 			
 			content: 'Latitude: ' + location.lat() + '<br></br>Longitude: ' + location.lng()
