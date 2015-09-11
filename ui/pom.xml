@@ -21,12 +21,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<!-- <groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-parent</artifactId>
-				<version>1.0.1.BUILD-SNAPSHOT</version>
-				<type>pom</type>
-				<scope>import</scope> -->
-				
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-starter-parent</artifactId>
 				<version>1.0.0.RELEASE</version>
