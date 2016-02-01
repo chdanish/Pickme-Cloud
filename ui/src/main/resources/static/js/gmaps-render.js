@@ -44,7 +44,7 @@ var marker=new google.maps.Marker({
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-google.maps.event.addDomListener(window, "resize", resizingMap());
+/*google.maps.event.addDomListener(window, "resize", resizingMap());*/
 
 function resizeMap() {
     console.log("resizemap fired");

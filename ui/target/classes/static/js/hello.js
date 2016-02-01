@@ -1,4 +1,6 @@
-var app =angular.module('hello', [ 'ngRoute','ngCookies' ]).config(function($routeProvider,$cookiesProvider, $httpProvider) {
+var app = angular.module('hello', [ 'ngRoute','ngCookies','ngMaterial' ]);
+
+app.config(function($routeProvider,$cookiesProvider, $httpProvider,MapProvider) {
 
 	$routeProvider
 	.when('/home', {
@@ -16,6 +18,11 @@ var app =angular.module('hello', [ 'ngRoute','ngCookies' ]).config(function($rou
 	  });*/
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+	
+	var setMapType = function(){
+		MapProvider.setMapType("GoogleMaps");
+	}();
+	
 });
 
 
@@ -24,13 +31,16 @@ var app =angular.module('hello', [ 'ngRoute','ngCookies' ]).config(function($rou
 app.factory('superCache', ['$cacheFactory', function($cacheFactory) {
     return $cacheFactory('super-cache');
   }])
-.controller('navigation', function($rootScope, $scope, $http, $location, $route, $cacheFactory, $window , $cookies ,superCache) {
-
+/*.controller('navigation', function($rootScope, $scope, $http, $location,$document,$interval, $route, $cacheFactory, $window , $cookies ,superCache,dirService,delService ,markerFactory, popupSER,Map) {*/
+	.controller('navigation', function($rootScope, $scope, $http, $location,$document,$interval, $route, $cacheFactory, $window , $cookies ,superCache,Map) {
+  
 	  superCache.removeAll();
 	  
 	  var JSESSIONID = $cookies.get('JSESSIONID');
 	  // Setting a cookie
 	  $cookies.put('JSESSIONID', '');
+	  
+	  
 	
 
 	$http.get('user').success(function(data) {
@@ -79,8 +89,8 @@ app.factory('superCache', ['$cacheFactory', function($cacheFactory) {
 //-Debug Code Starts here-------------------------------------------------------------------------
 
 app.run([
-        '$rootScope',
-        function($rootScope) {
+        '$rootScope','Map',
+        function($rootScope,Map) {
           // see what's going on when the route tries to change
           $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
             // both newUrl and oldUrl are strings
