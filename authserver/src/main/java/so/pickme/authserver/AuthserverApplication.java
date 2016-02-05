@@ -6,6 +6,7 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +45,12 @@ import so.pickme.utils.Propertiesimport;
 @SessionAttributes("authorizationRequest")
 @EnableResourceServer
 public class AuthserverApplication extends WebMvcConfigurerAdapter {
+	
+	//This Bean is use to enable Tomcat Embedded container
+	@Bean
+	public TomcatEmbeddedServletContainerFactory tomcatEmbeddedServletContainerFactory() {
+	    return new TomcatEmbeddedServletContainerFactory();
+	}
 
 	@RequestMapping("/user")
 		@ResponseBody

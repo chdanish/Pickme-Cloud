@@ -1,4 +1,4 @@
-debug:
+debug: true
 security:
   sessions: ALWAYS
   user:

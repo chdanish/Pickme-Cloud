@@ -1,4 +1,4 @@
-package org.routes.response;
+package so.pickme.response;
 
 import java.io.Serializable;
 

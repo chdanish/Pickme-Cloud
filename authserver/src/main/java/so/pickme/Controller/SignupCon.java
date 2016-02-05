@@ -28,9 +28,10 @@ public class SignupCon {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public User createAccount(@RequestBody SignupDTO dto, ModelMap model) throws XhrcException {
 	
-		System.out.println("Entering create account");
+		System.out.println("Entering create account" );
 		System.out.println("Entering create account with:"+dto.getFirstName()+" "+dto.getLastName());
 		/*User user=userRepository.findByUsername(dto.getUsername());*/
+		/*if(baseService.findByUsername(dto.getUsername()) != null)*/
 		if(userRepository.findByUsername(dto.getUsername()) != null)
 		{
 			return null;
@@ -41,12 +42,5 @@ public class SignupCon {
 			baseService.registerUserNode(dto);
 			return userRepository.findByUsername(dto.getUsername());
 		}
-/*		if(userRepository.findByUsername(dto.getUsername()).getUsername()==dto.getUsername()){
-			return "/signup";
-		}
-		else {
-			baseService.registerUserNode(dto);
-			return "redirect:/";
-		}*/
 		}
 	}

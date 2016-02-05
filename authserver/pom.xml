@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.2.2.RELEASE</version>
+		<version>1.3.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -22,16 +22,17 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<scope>runtime</scope>
+			<!-- <scope>runtime</scope> -->
 		</dependency>
 		<dependency>
 		  <groupId>org.springframework.session</groupId>
 		  <artifactId>spring-session</artifactId>
-		  <version>1.0.0.RELEASE</version>
+		  <!-- <version>1.0.0.RELEASE</version> -->
 		</dependency>
 		<dependency>
 		  <groupId>org.springframework.boot</groupId>
 		  <artifactId>spring-boot-starter-redis</artifactId>
+		  <!-- <version>1.2.2.RELEASE</version> -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -71,13 +72,19 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-neo4j</artifactId>
-			<version>3.3.0.RELEASE</version>
+			<version>4.0.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-neo4j-rest</artifactId>
-			<version>3.3.0.RELEASE</version>
+			<version>3.4.2.RELEASE</version>
 		</dependency>
+		<dependency>
+            <groupId>org.neo4j.app</groupId>
+            <artifactId>neo4j-server</artifactId>
+            <version>${neo4j.version}</version>
+        </dependency>
+
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
@@ -86,66 +93,39 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
-			<version>1.10.0.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aspects</artifactId>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-		    <groupId>org.aspectj</groupId>
-		    <artifactId>aspectjrt</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-		</dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
 		 <dependency>
 	    	<groupId>log4j</groupId>
 	    	<artifactId>log4j</artifactId>
 	    	<type>jar</type>
 	    	<scope>compile</scope>
 	    </dependency>
-	    <dependency>
+	  <dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib-nodep</artifactId>
-			<version>${cglib.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>3.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
-			<version>3.1</version>
-			<scope>compile</scope>
+			<version>3.2.0</version>
 		</dependency>
-		    <dependency>
+	<dependency>
     	<groupId>org.slf4j</groupId>
     	<artifactId>slf4j-api</artifactId>
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency> 
-<!--     <dependency>
-    	<groupId>org.slf4j</groupId>
-    	<artifactId>slf4j-log4j12</artifactId>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency> -->
     <dependency>
     	<groupId>org.slf4j</groupId>
     	<artifactId>jcl-over-slf4j</artifactId>
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency>
-    <dependency>
-		<groupId>c3p0</groupId>
-		<artifactId>c3p0</artifactId>
-		<version>${c3p0.version}</version>
-		<type>jar</type>
-		<scope>compile</scope>
-	</dependency>
 		<dependency>
 		<groupId>com.alibaba</groupId>
 		<artifactId>fastjson</artifactId>
@@ -170,7 +150,8 @@
 		<c3p0.version>0.9.1.2</c3p0.version>
 		<cglib.version>2.2</cglib.version>
 		<wro4j.version>1.7.6</wro4j.version>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
+		<neo4j.version>2.2.5</neo4j.version>
 	</properties>
 
 	<build>
