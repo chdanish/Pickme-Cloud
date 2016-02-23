@@ -78,8 +78,10 @@ public class RouteServiceImpl implements RouteService {
 			route.setDestpointLONG(sdto.getDstp_LNG());
 			
 			/*User activeUser = (User) ((Authentication) principal).getPrincipal();*/
-			route.setUser(user);
 			
+			/*User userx = template.loadByProperty(User.class, "username", auth.getName());*/
+			
+			route.setOwnby(user);
 			route.setShareType("Public");
 			
 			return routeRepository().save(route);
