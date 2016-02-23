@@ -19,7 +19,12 @@ public class Propertiesimport implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6369120969172832528L;
+	private static final long serialVersionUID = 2901296471387882254L;
+
+	/**
+	 * 
+	 */
+	
 	
 	@NotNull
 	@Value("${proxyhostip}")

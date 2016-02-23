@@ -20,7 +20,7 @@ import so.pickme.repository.UserRepository;
 import so.pickme.response.SignupDTO;
 import so.pickme.service.BaseService;
 
-import com.alibaba.fastjson.JSON;
+/*import com.alibaba.fastjson.JSON;*/
 
 @Service("baseService")
 @Transactional
@@ -40,8 +40,12 @@ public class BaseServiceImpl implements BaseService {
 		try {
 			return userRepository().save(userNode);
 		} catch (Exception e) {
-			logger.error("saveUserNode userNode=" + JSON.toJSONString(userNode), e);
-			throw new XhrcException("20021", "saveUserNode userNode=" + JSON.toJSONString(userNode), e);
+			logger.error("saveUserNode userNode=" 
+		/*+ JSON.toJSONString(userNode), e*/
+		);
+			throw new XhrcException("20021", "saveUserNode userNode="
+		/*+ JSON.toJSONString(userNode), e*/
+		);
 		}
 	}
 
@@ -60,8 +64,8 @@ public class BaseServiceImpl implements BaseService {
 		uNode = saveUserNode(uNode);
 		if (uNode == null || uNode.getId() == null || uNode.getId() <= 0 || uNode.getId() == null
 				|| uNode.getId() <= 0) {
-			logger.error("createUserNode userNode=" + JSON.toJSONString(uNode));
-			throw new XhrcRuntimeException("20041", "createUserNode userNode=" + JSON.toJSONString(uNode));
+			/*logger.error("createUserNode userNode=" + JSON.toJSONString(uNode));
+			throw new XhrcRuntimeException("20041", "createUserNode userNode=" + JSON.toJSONString(uNode));*/
 		}
 		return uNode;
 	}

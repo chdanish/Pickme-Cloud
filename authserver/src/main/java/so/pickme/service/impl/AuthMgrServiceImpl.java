@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,18 +20,21 @@ import org.springframework.transaction.annotation.Transactional;
 import so.pickme.replica.domain.User;
 import so.pickme.repository.UserRepository;
 import so.pickme.service.AuthMgrService;
+import so.pickme.service.GenericService;
 
 @Service
 @Transactional
-public class AuthMgrServiceImpl implements AuthMgrService {
+public class AuthMgrServiceImpl extends GenericService<User> implements AuthMgrService {
+
 	
+	
+
 	String user_role = ""; 
 	
-	@Resource
+	@Autowired
 	private Neo4jOperations template;
 	
 	@Autowired
-	@Lazy
 	private UserRepository userRepository;
 	
 	BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
@@ -50,7 +51,10 @@ public class AuthMgrServiceImpl implements AuthMgrService {
 	public Authentication authenticate(Authentication auth)
 			throws AuthenticationException {
 		
-		User user = userRepository().findByUsername(auth.getName());
+		User user = template.loadByProperty(User.class, "username", auth.getName());
+		
+		/*User user = getRepository().findBySchemaPropertyValue("username", auth.getName());*/
+		/*User user = userRepository.findByUsername(auth.getName());*/
 		if (user != null) {
 			System.out.println("Input password is : "+ auth.getCredentials().toString());
 			/*user.setRole("USER");*/
@@ -94,6 +98,14 @@ public class AuthMgrServiceImpl implements AuthMgrService {
 	public void setUserRepository(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
+
+	@Override
+	public GraphRepository<User> getRepository() {
+		
+		return userRepository;
+	}
+
+
 
 
 }

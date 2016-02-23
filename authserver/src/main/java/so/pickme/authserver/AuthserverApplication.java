@@ -1,22 +1,28 @@
 package so.pickme.authserver;
 
+
 import java.security.KeyPair;
 import java.security.Principal;
 
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -36,24 +42,58 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import so.pickme.utils.Propertiesimport;
 
-@SpringBootApplication
+
+
 @EnableRedisHttpSession
+@SpringBootApplication
 @Controller
-@ComponentScan({ "so.pickme" })
-@ImportResource({"classpath:trace-context.xml"})
 @SessionAttributes("authorizationRequest")
 @EnableResourceServer
+@ComponentScan({"so.pickme"})
 public class AuthserverApplication extends WebMvcConfigurerAdapter {
+	
+	@Autowired
+	private ApplicationContext appContext;
+	
+	private final static String SESSION_SERIALIZATION_ID = "6847625548492548146L";
+
+	@Bean
+	public String overwriteSerializationId() {
+	    BeanFactory beanFactory = appContext.getAutowireCapableBeanFactory();
+	    ((DefaultListableBeanFactory) beanFactory).setSerializationId(SESSION_SERIALIZATION_ID);
+	    return "overwritten";
+	}
+	
+	
+	
+	
+	@Primary
+	@Bean
+	public StringRedisTemplate redisTemplate() {
+	    StringRedisTemplate template = new StringRedisTemplate(redisConnectionFactory());
+	    // explicitly enable transaction support
+	    template.setEnableTransactionSupport(true);
+	    template.setEnableDefaultSerializer(false);
+	    return template;
+	  }
+	
+	@Bean
+    public RedisConnectionFactory redisConnectionFactory() {
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        /*jedisConnectionFactory.setHostName("pub-redis-16210.us-east-1-3.6.ec2.redislabs.com");
+        jedisConnectionFactory.setPort(16210);
+        jedisConnectionFactory.setPassword("pickme");*/
+        jedisConnectionFactory.setHostName("localhost");
+        jedisConnectionFactory.setPort(6379);
+        jedisConnectionFactory.setUsePool(true);
+        return jedisConnectionFactory;
+    }
 
 	@RequestMapping("/user")
-		@ResponseBody
-		public Principal user(Principal user) {
-			return user;
-		}
-	
-	
-	
-	
+	@ResponseBody
+	public Principal user(Principal user) {
+		return user;
+	}
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
@@ -66,23 +106,18 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	}
 
 	@Configuration
-	@Order(-10)
+	@Order(-20)
 	protected static class LoginConfig extends WebSecurityConfigurerAdapter {
 
 		@Autowired
 		private AuthenticationManager authenticationManager;
 		
-		/*@Autowired
-		SampleAuthenticationManager sampleAuthenticationManager;*/
-		
-		
 		@Autowired
 		private Propertiesimport pimport;
-		
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			
+
 			System.out.println("Fetching proxy address... :"+pimport.getProxy());
 			pimport.setProxy(pimport.getProxy());
 			System.out.println("Fixing proxy address... :" + Propertiesimport.getPrx());
@@ -103,21 +138,9 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 			// @formatter:on
 		}
 
-		@Autowired
-		UserDetailsService userDetailsService;
-		
-		
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-			auth
-		/*	.parentAuthenticationManager(authentication -> new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),
-					authentication.getCredentials(), Lists.newArrayList(new SimpleGrantedAuthority("USER_ROLE"))));*/
-
-			.parentAuthenticationManager(authenticationManager)
-			/*.userDetailsService(userDetailsService)
-				.passwordEncoder(new BCryptPasswordEncoder())*/
-			
-				;
+			auth.parentAuthenticationManager(authenticationManager);
 		}
 	}
 
@@ -151,8 +174,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
 				throws Exception {
-			endpoints
-			.authenticationManager(authenticationManager).accessTokenConverter(
+			endpoints.authenticationManager(authenticationManager).accessTokenConverter(
 					jwtAccessTokenConverter());
 		}
 

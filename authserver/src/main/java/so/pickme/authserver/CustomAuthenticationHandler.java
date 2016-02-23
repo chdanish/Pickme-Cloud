@@ -28,7 +28,7 @@ public class CustomAuthenticationHandler extends SavedRequestAwareAuthentication
     String targetUri = "/uaa/oauth/authorize";
     
     
-    private static final String proxyhosturl = Propertiesimport.getPrx();
+    private static final String proxyhosturl = "http://localhost:8080";
     
   
     
@@ -44,7 +44,7 @@ public class CustomAuthenticationHandler extends SavedRequestAwareAuthentication
 
             return;
         }
-        String targetUrlParameter = getTargetUrlParameter();
+        String targetUrlParameter = this.getTargetUrlParameter();
         System.out.println("targetUrlParameter:"+targetUrlParameter);
         if (isAlwaysUseDefaultTargetUrl() || (targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter)))) {
             requestCache.removeRequest(request, response);
