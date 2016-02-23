@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+debug: true
+>>>>>>> 9e9908278881d7a25d789b0452630c8a58365449
 security:
   oauth2:
     sso:

@@ -9,9 +9,17 @@ import so.pickme.repository.UserRepository;
 import so.pickme.response.SignupDTO;
 
 public interface BaseService {
-	Neo4jOperations template();
+	/*Neo4jOperations template();
 
-	UserRepository userRepository();
+	UserRepository userRepository();*/
+	
+	/**
+	 * 
+	 * 
+	 * @param username
+	 * @return
+	 */
+	User findByUsername(String username);
 
 	/**
 	 * 

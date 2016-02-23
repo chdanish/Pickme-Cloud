@@ -4,6 +4,9 @@ import java.util.Calendar;
 
 import javax.annotation.Resource;
 
+import org.neo4j.helpers.collection.IteratorUtil;
+import org.neo4j.ogm.cypher.Filter;
+import org.neo4j.ogm.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +30,19 @@ import so.pickme.service.BaseService;
 public class BaseServiceImpl implements BaseService {
 	private static Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
 
-	@Resource
-	private Neo4jOperations template;
+	/*@Resource
+	private Neo4jOperations template;*/
 	
 	@Autowired
-	@Lazy
 	private UserRepository userRepository;
 	
+	@Autowired
+    private Session session;
 
 	@Override
 	public User saveUserNode(User userNode) throws XhrcException {
 		try {
-			return userRepository().save(userNode);
+			return userRepository.save(userNode);
 		} catch (Exception e) {
 			logger.error("saveUserNode userNode=" 
 		/*+ JSON.toJSONString(userNode), e*/
@@ -78,7 +82,7 @@ public class BaseServiceImpl implements BaseService {
 		}
 		User uNode = null;
 		try {
-			uNode =  userRepository().findOne(userId);
+			uNode =  userRepository.findOne(userId);
 					
 		} catch (Exception e) {
 			logger.error("getUserNode userId：" + userId, e);
@@ -92,23 +96,16 @@ public class BaseServiceImpl implements BaseService {
 			return uNode;
 		}
 	}
+	
+	
+
+	public Iterable<User> findByProperty(String propertyName, Object propertyValue) {
+        return session.loadAll(User.class, new Filter(propertyName, propertyValue));
+    }
 
 	@Override
-	public Neo4jOperations template() {
-		return template;
-	}
-
-	public void setTemplate(Neo4jOperations template) {
-		this.template = template;
-	}
-
-	@Override
-	public UserRepository userRepository() {
-		return userRepository;
-	}
-
-	public void setUserRepository(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public User findByUsername(String username) {
+		 return IteratorUtil.firstOrNull(findByProperty("login", username).iterator());
 	}
 
 
