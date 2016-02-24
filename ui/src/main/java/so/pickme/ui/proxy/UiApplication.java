@@ -18,6 +18,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -38,7 +39,7 @@ import org.springframework.web.util.WebUtils;
 @SpringBootApplication
 @EnableZuulProxy
 @EnableOAuth2Sso
-/*@ComponentScan({ "demo" })*/
+@ComponentScan({ "so.pickme.ui" })
 public class UiApplication extends WebSecurityConfigurerAdapter  {
 	
 

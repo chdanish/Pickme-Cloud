@@ -6,6 +6,7 @@ import java.security.Principal;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +23,7 @@ import so.pickme.common.exception.XhrcException;
 import so.pickme.replica.domain.User;
 import so.pickme.repository.UserRepository;
 import so.pickme.response.SaverouteDTO;
+import so.pickme.service.RouteService;
 import so.pickme.service.Impl.RouteServiceImpl;
 import so.pickme.utils.SecurityUtils;
 
@@ -33,7 +35,7 @@ import so.pickme.utils.SecurityUtils;
 public class RoutesServer {
 	
 	@Autowired
-	RouteServiceImpl routeService;
+	RouteService routeService;
 	
 	@Autowired
 	UserRepository userRepository;
