@@ -21,6 +21,7 @@ app.controller('route', function($rootScope, $scope, $http, $location,$document,
 	
 	
 	
+	
 	$scope.$watch('saverouteDTO.tName', function (newValue, oldValue) {
 		if (newValue === "") {
 			$scope.saverouteDTO.tName = null;
@@ -88,6 +89,8 @@ app.controller('route', function($rootScope, $scope, $http, $location,$document,
        	});
 	    /* ==============Save Modal listener ends here============== */
 	    
+	    /* ==============Save Route ============== */
+	    
 	    $scope.save = function(){
 	    	
 	    	
@@ -106,11 +109,52 @@ app.controller('route', function($rootScope, $scope, $http, $location,$document,
          .errorMessage("MainCtrl -> addNews")
          .then(function(response) {
               console.log(response);
+              $scope.myroutes =response;
+              loadroutes();
+              $route.reload();
          });
-       	 	
+       		
        	 	
 	    };
 	
-	 
+	    /* ==============Save Route ends here ============== */
+	    
+	    /* ==============Get Saved Route ============== */
+	
+	    
+	    loadroutes();
+	    function loadroutes (){
+	    	console.log("Route update request recieved");
+	    	 httpq.getJSON('getmyroutes/ownedbyme', $scope.saverouteDTO)
+	         .errorMessage("MainCtrl -> addNews")
+	         .then(function(response) {
+	              console.log(response);
+	              $scope.myroutes = response; 
+	              
+	         });
+	    	 
+	    	
+	    }
+	    
+	  
+	    	
+	    
+	    
+	    /* ==============Get Saved Route ends here ============== */
+	    /* ==============Delete Route ============== */
+	    
+	  
+		
+		$scope.deleteroute = function(id){
+			console.log("Delete Route with ID: " + id);
+	    	$http.delete('getmyroutes/'+id).success(function(data) {
+	    		loadroutes();
+			})
+	    }
+	    
+	    /* ==============Get Save Route ends here ============== */
+	    
+	    
+	    
 	
 });

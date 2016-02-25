@@ -1,0 +1,41 @@
+.collapsible-jq {
+  border: 1px solid gray;
+}
+.collapsible-jq > section {
+  overflow: hidden;
+}
+.collapsible-jq > section > p {
+  margin: 0;
+  padding: 5px;
+}
+.collapsible-jq > header {
+  border-bottom: 1px solid green;
+  cursor: pointer;
+}
+.collapsible-jq > header h4 {
+  margin: 0;
+}
+
+.collapsible {
+  border: 1px solid gray;
+}
+.collapsible > section {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.7s ease-in-out;
+}
+.collapsible > section > p {
+  margin: 0;
+  padding: 5px;
+}
+.collapsible > section.opened {
+  transition: max-height 0.9s ease-in-out;
+  max-height: 150px;
+}
+.collapsible > header {
+  border-bottom: 1px solid green;
+  cursor: pointer;
+}
+.collapsible > header h4 {
+  margin: 0;
+}

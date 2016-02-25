@@ -77,6 +77,24 @@ public class RouteServiceImpl implements RouteService {
 			route.setDestpointLAT(sdto.getDstp_LAT());
 			route.setDestpointLONG(sdto.getDstp_LNG());
 			
+			route.setTitle(sdto.gettName());
+			
+			if (!sdto.getdName().equals("") && sdto.getdName() != null ) {
+				route.setDiscription(sdto.getdName());
+			}else {
+				route.setDiscription("");
+			}
+			if (!sdto.getStpName().equals("") && sdto.getStpName() != null ) {
+				route.setStartpointaddress(sdto.getStpName());
+			}else {
+				route.setDiscription("");
+			}if (!sdto.getDstpName().equals("") && sdto.getDstpName() != null ) {
+				route.setDestinationpointaddress(sdto.getDstpName());
+			}else {
+				route.setDiscription("");
+			}
+			
+			
 			/*User activeUser = (User) ((Authentication) principal).getPrincipal();*/
 			
 			/*User userx = template.loadByProperty(User.class, "username", auth.getName());*/

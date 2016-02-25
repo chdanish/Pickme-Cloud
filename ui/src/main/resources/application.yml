@@ -28,9 +28,15 @@ zuul:
     resource:
       path: /resource/**
       url: http://localhost:9000/resource
-    saveroute:
+    routeserver1:
       path: /saveroute/**
       url: http://localhost:9000/resource/saveroute
+    routeserver2:
+      path: /getmyroutes/**
+      url: http://localhost:9000/resource/getmyroutes
+    routeserver3:
+      path: /getmyroutes/ownedbyme/**
+      url: http://localhost:9000/resource/getmyroutes/ownedbyme
     user:
       path: /user/**
       url: http://localhost:9998/uaa/user

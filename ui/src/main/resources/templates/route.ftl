@@ -1,8 +1,23 @@
 <!-- Authenticated Navbar  not compiled-->
-<div  data-role="navbar" ng-show="authenticated" >
+<div  data-role="navbar" ng-show="authenticated" ng-model="routewatcher()">
 </div><!-- /navbar -->
 
-<div ng-show="authenticated" style="background-color: #eeeeee; width: 250px; height: 100%; border-right: solid 1px #e1e1e1;">
+<!-- Collapse dir -->
+<div class="content" ng-repeat="myroute in myroutes" style="background-color: #eeeeee; top-padding=5px; height: 100%; border-right: solid 1px #e1e1e1;">  
+  <collapse title="{{myroute.title}}">
+    <p>{{myroute.discription}}</p>
+    <p>Starting Address: {{myroute.startpointaddress}}</p>
+    <p>Destination Address: {{myroute.destinationpointaddress}}</p>
+    		<button type="button" class="btn btn-default" >Edit</button>
+			<button type="button" class="btn btn-default" ng-click="deleteroute(myroute.id)" >Delete</button>
+			<button type="button" class="btn btn-default" >Share</button><br></br>
+			
+  </collapse>
+</div>
+<!-- Collapse dir -->
+
+
+<!-- <div ng-show="authenticated" style="background-color: #eeeeee; width: 250px; height: 100%; border-right: solid 1px #e1e1e1;">
 <h1>Route Testing</h1>
 	<p>The ID is {{routedata.id}}</p>
 	<p>The content is {{routedata.content}}</p>
@@ -10,6 +25,8 @@
 <div  ng-show="!authenticated">
 	<p>Login to see your greeting</p>
 </div>
+
+ -->
 
     <!-- Save Modal -->
     

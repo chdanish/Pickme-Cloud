@@ -7,6 +7,9 @@ import java.security.Principal;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -41,7 +44,7 @@ public class RoutesServer {
 	UserRepository userRepository;
 	
 	 @RequestMapping(value="/saveroute", method = RequestMethod.POST)
-	 public @ResponseBody void saveroute(@RequestBody SaverouteDTO sdto,Principal principal) throws XhrcException{
+	 public @ResponseBody List<String> saveroute(@RequestBody SaverouteDTO sdto,Principal principal) throws XhrcException{
 		
 		System.out.println("Response recieved: "+ sdto);
 		
@@ -56,12 +59,7 @@ public class RoutesServer {
 			routeService.createRouterNode(sdto, activeUser);
 			
 		}
-		
-		
-		
-		/*User activeUser = (User) ((Authentication) principal).getPrincipal();*/
-		
-		
+		return new ArrayList<String>();		
 		
 		
 	}

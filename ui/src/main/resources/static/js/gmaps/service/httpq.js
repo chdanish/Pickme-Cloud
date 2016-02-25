@@ -10,12 +10,12 @@ app.factory('httpq', ['$http', '$q', function($http, $q) {
 						if (response != undefined && typeof response == "object") {
 							deferred.resolve(response);
 						} else {
-							alert(errorMessage + ": Result is not JSON type");
+							console.error(errorMessage + ": Result is not JSON type");
 						}
 					})
 					.error(function(data) {
 						deferred.reject(data);
-						alert(errorMessage + ": Server Error");
+						console.error(errorMessage + ": Server Error");
 					});
 
 				return deferred.promise;
