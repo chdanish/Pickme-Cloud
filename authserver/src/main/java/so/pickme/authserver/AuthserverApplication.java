@@ -36,7 +36,9 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -50,6 +52,7 @@ import so.pickme.utils.Propertiesimport;
 @SessionAttributes("authorizationRequest")
 @EnableResourceServer
 @ComponentScan({"so.pickme"})
+@RestController
 public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	
 	@Autowired
@@ -63,9 +66,6 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	    ((DefaultListableBeanFactory) beanFactory).setSerializationId(SESSION_SERIALIZATION_ID);
 	    return "overwritten";
 	}
-	
-	
-	
 	
 	@Primary
 	@Bean
@@ -168,7 +168,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 					.withClient("acme")
 					.secret("acmesecret")
 					.authorizedGrantTypes("authorization_code", "refresh_token",
-							"password").scopes("openid");
+							"password").scopes("openid").autoApprove(true);
 		}
 
 		@Override

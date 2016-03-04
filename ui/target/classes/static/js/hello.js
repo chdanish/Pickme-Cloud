@@ -34,16 +34,16 @@ app.factory('superCache', ['$cacheFactory', function($cacheFactory) {
 /*.controller('navigation', function($rootScope, $scope, $http, $location,$document,$interval, $route, $cacheFactory, $window , $cookies ,superCache,dirService,delService ,markerFactory, popupSER,Map) {*/
 	.controller('navigation', function($rootScope, $scope, $http, $location,$document,$interval, $route, $cacheFactory, $window , $cookies ,superCache,Map) {
   
-	  superCache.removeAll();
+	/*  superCache.removeAll();
 	  
 	  var JSESSIONID = $cookies.get('JSESSIONID');
 	  // Setting a cookie
-	  $cookies.put('JSESSIONID', '');
+	  $cookies.put('JSESSIONID', '');*/
 	  
 	  
 	
 
-	$http.get('user').success(function(data) {
+	$http.get('userx').success(function(data) {
 		if (data.name) {
 			$rootScope.authenticated = true;
 		} else {

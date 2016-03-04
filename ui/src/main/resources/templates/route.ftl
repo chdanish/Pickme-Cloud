@@ -1,5 +1,5 @@
 <!-- Authenticated Navbar  not compiled-->
-<div  data-role="navbar" ng-show="authenticated" ng-model="routewatcher()">
+<div  data-role="navbar" ng-show="authenticated" >
 </div><!-- /navbar -->
 
 <!-- Collapse dir -->

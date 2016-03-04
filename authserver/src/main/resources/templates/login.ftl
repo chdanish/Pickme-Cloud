@@ -7,11 +7,14 @@
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
-<!-- <script>
-    $(document).bind("mobileinit", function(){
-      $.mobile.ajaxEnabled = false;
-    });
-</script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-cookies.min.js"></script>
+<script language="javascript">
+	$.mobile.hashListeningEnabled = false;
+	$.mobile.ajaxLinksEnabled = false;
+    $.mobile.ajaxEnabled = false;
+   
+ 
+</script>
 </head>
 <body ng-app="hello" ng-cloak class="ng-cloak"><body>
 <#if RequestParameters['error']??>
@@ -23,6 +26,7 @@
 		<ul class="nav nav-pills" role="tablist">
 			<li ng-class="{active:tab.isSet(1)}"><a href ng-click="tab.setTab(1)">login</a></li>
             <li ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)">SignUp</a></li>
+            <li><a href ng-click="facebookauth()">Login with facebook</a></li>
 		</ul>
 	
 		<div ng-show="tab.isSet(1)">

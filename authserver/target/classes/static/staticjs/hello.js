@@ -1,4 +1,4 @@
-var app = angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
+var app = angular.module('hello', [ 'ngRoute','ngCookies' ]).config(function($routeProvider, $httpProvider,$cookiesProvider) {
 
 	/*$routeProvider.when('/', {
 		templateUrl : 'login',
@@ -11,7 +11,7 @@ var app = angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider,
 });
 app.controller('navigation',
 
-function($rootScope, $scope, $http, $location, $route ,$window, $routeParams) {
+function($rootScope, $scope, $http, $location, $route ,$window, $routeParams,$cookieStore) {
 
 /*	$scope.tab = function(route) {
 		return $route.current && route === $route.current.controller;
@@ -55,6 +55,29 @@ function($rootScope, $scope, $http, $location, $route ,$window, $routeParams) {
 	 		});
 	    }
 	    
+	   /* ---------------------------------------------------------------------------------------------------*/
+	    
+	    
+		  $scope.facebookauth = function (){
+			 
+			  console.log("Looking for cookie");
+			 if( $cookieStore.get('SESSION')){
+				 console.log("Cookie found");
+				 $cookieStore.remove('JSESSIONID');
+					$cookieStore.remove('SESSION');
+				 
+			 }
+			
+				
+				$cookieStore.remove('JSESSIONID');
+				$cookieStore.remove('SESSION');
+				  
+				  
+				  
+				  $window.location.href='http://localhost:8080/facebookauth';
+			  
+		  }
+	    
 	    
 
 }).controller('login', function($scope, $http) {
@@ -80,6 +103,30 @@ app.directive('pwCheck', [function () {
       }
     }]);
 
+//-------------------------------------------------------------------------------------
+app.controller('facebookauth',
+
+		function( $http, $httpProvider,$cookies) {
+
+	  
+	  $scope.facebookauth = function (){
+		  
+			$httpProvider.defaults.withCredentials = false;
+			superCache.removeAll();
+			  
+			  var JSESSIONID = $cookies.get('JSESSIONID');
+			  // Setting a cookie
+			  $cookies.put('JSESSIONID', '');
+			  
+			  var JSESSIONID = $cookies.get('SESSION');
+			  // Setting a cookie
+			  $cookies.put('SESSION', '');
+			  
+			  $window.location.href='/facebookauth';
+		  
+	  }
+	
+});
 
 //-Debug Code Starts here-------------------------------------------------------------------------
 
