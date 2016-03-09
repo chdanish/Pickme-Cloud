@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController
 
 @SpringBootApplication
@@ -15,6 +17,15 @@ class ResourceApplication {
 	def home() {
 		[id: UUID.randomUUID().toString(), content: 'Hello World']
 	}
+	
+	@RequestMapping(value="/saveroute", method = RequestMethod.POST)
+	def saveroute (@RequestBody String json) {
+		println json
+		[id: UUID.randomUUID().toString(), content: 'Hello World']
+	}
+	
+	
+	
 
     static void main(String[] args) {
         SpringApplication.run ResourceApplication, args

@@ -1,27 +1,240 @@
 <!doctype html>
-<html>
+<!--[if lt IE 7]> <html class="ie6 oldie"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="">
+<!--<![endif]-->
 <head>
-<title>Hello AngularJS</title>
-<link
-	href="css/angular-bootstrap.css"
-	rel="stylesheet">
-<style type="text/css">
-[ng\:cloak], [ng-cloak], .ng-cloak {
-	display: none !important;
-}
-</style>
-</head>
+<meta charset="utf-8">
+ <!--   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="css/boilerplate.css" rel="stylesheet" type="text/css">
+<link href="css/main-page.css" rel="stylesheet" type="text/css">
+<link href="css/route-collapse-panel.css" rel="stylesheet" type="text/css">
+<!-- <link href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css"/> -->
 
-<body ng-app="hello" ng-cloak class="ng-cloak">
-	<div ng-controller="navigation" class="container">
-		<ul class="nav nav-pills" role="tablist">
-			<li ng-class="{active:tab('home')}"><a href="#/">home</a></li>
-			<li><a href="login">login</a></li>
-			<li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
-		</ul>
-	</div>
-	<div ng-view class="container"></div>
-	<script src="js/angular-bootstrap.js" type="text/javascript"></script>
-	<script src="js/hello.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js" type="text/javascript"></script> 
+<script language="javascript">
+	$.mobile.hashListeningEnabled = false;
+	$.mobile.ajaxLinksEnabled = false;
+    $.mobile.ajaxEnabled = false;
+   
+ 
+</script>-->
+
+<!-- 
+To learn more about the conditional comments around the html tags at the top of the file:
+paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+
+Do the following if you're using your customized build of modernizr (http://www.modernizr.com/):
+* insert the link to your js here
+* remove the link below to the html5shiv
+* add the "no-js" class to the html tags at the top
+* you can also remove the link to respond.min.js if you included the MQ Polyfill in your modernizr build 
+-->
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<title>pickmeUP Web App</title>
+
+
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link href="css/navbar.css" rel="stylesheet" type="text/css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <!--  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>-->
+
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJIUO25e0eVzDR2ZSOfU8Bl8XVOdl3jk4" ></script> -->
+    <!-- Bug reported with & signed_in=true  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJIUO25e0eVzDR2ZSOfU8Bl8XVOdl3jk4&signed_in=true&libraries=places,visualization" async defer></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJIUO25e0eVzDR2ZSOfU8Bl8XVOdl3jk4&libraries=places,visualization" ></script>
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+    <!-- <script src="js/angular-bootstrap.js" type="text/javascript"></script> -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.js"></script> 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-cookies.js"></script>
+    
+    
+	 
+	  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+	 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="js/hello.js"></script>
+ 
+
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map-canvas4 { width: 100%; height: 100%; }
+    h1.ng-scope {
+		    font-family:Arial, Helvetica, sans-serif;
+		    color: #000000;
+		}
+	#mySaveModal h1, label.col-sm-2.control-label,label.col-md-4.control-label{
+		    font-family:Arial, Helvetica, sans-serif;
+		    font-size: 1em;
+		    color: #3366ff;
+		}
+	#mySaveModal input{
+		    font-family:Arial, Helvetica, sans-serif;
+		    
+		    color: #000000;
+		}
+	#mapnavbar{
+		    font-family:Arial, Helvetica, sans-serif;
+		    	    
+			padding: 20px !important;
+		}
+	.demo-map{
+		   display:block;
+		    width: 100%; height: 100%;
+		    margin-bottom:20px;
+		}
+		
+	
+    </style>
+
+</head>
+<!-- <body ng-app="hello" onload="initialize()"> -->
+<body ng-app="hello" data-ajax="false" class="bg">
+
+    <div ng-controller="navigation" ng-show="authenticated" class="navbar-default  ">
+
+        <nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-header">
+                <a type="button" class="navbar-right navbar-toggle collapsed"  data-toggle="collapse" data-target="#navbar" >
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="navbar-brand" >pickmeUP</a>
+            </div>
+             <div class="container" >
+        <!-- Brand and toggle get grouped for better mobile display -->
+
+                 <div id="navbar" class="navbar-collapse collapse">
+                     <ul class="nav nav-pills nav-justified" >
+                        <li><a class="btn btn-sm" href="#">home</a> </li>
+                        <li role="presentation" class="dropdown">
+                           <a class="btn  dropdown-toggle btn-sm" data-toggle="dropdown" href="#/route" data-ajax="false" role="button" aria-haspopup="true" aria-expanded="false">routes<span class="caret"></span></a>
+                        <ul class="dropdown-menu" >
+                            <li><a  data-target="#myMapModal" class="btn-sm" data-toggle="modal">new route</a> </li>
+                            <li><a class="btn-sm" href="#">saved routes</a> </li>
+                            <li><a class="btn-sm" data-target="#wp" data-rel="popup" data-position-to="window" data-transition="slideup" >New Route</a></li>
+
+                        </ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a class="btn  dropdown-toggle btn-sm" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">friends<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="btn-sm" href="#">friends</a> </li>
+                                <li><a class="btn-sm" href="#">requests</a> </li>
+                                <li><a class="btn-sm" href="#">search</a> </li>
+
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a class="btn  dropdown-toggle btn-sm" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">settings<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="btn-sm" href="#">profile</a> </li>
+                                <li  ng-show="authenticated"><a class="btn-sm" href="" ng-click="logout()">logout</a></li>
+                         </ul>
+                        </li>
+                     </ul>
+                 </div>
+             </div>
+
+        </nav>
+        
+    </div>
+     <div ng-view class="container"></div>
+  
+
+    <!-- Modal for gmaps-->
+    <div class="modal fade"  id="myMapModal" ng-controller="route" role="dialog">
+       <!-- map nav starts here -->
+		
+		<nav id="mapnavbar" ng-controller="route">
+			<div class="btn-group btn-group-sm" role="group" aria-label="Button group with nested dropdown">
+			  <button type="button" data-dismiss="modal" data-toggle="modal" ng-disabled="disable" class="btn btn-secondary"  href="#mySaveModal">Save</button>
+			     
+			 
+			
+			  <div class="btn-group btn-group-sm" role="group">
+			    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      Clear
+			     <span class="caret"></span></button>
+					  <ul class="dropdown-menu">
+					    <li><a  data-target="#myMapModal" class="btn-sm"  ng-click="deleteAll()" >all points</a> </li>
+					    <li class="divider"></li>
+				        <li><a  data-target="#myMapModal" class="btn-sm"  ng-click="deleteSTP()" >starting point</a> </li>
+				        <li class="divider"></li>
+				        <li><a  data-target="#myMapModal" class="btn-sm"  ng-click="deleteDSTP()" >destination point</a> </li>
+					  </ul>
+			  </div>
+			</div>
+		</nav>
+    <!-- map nav ends here -->
+        <div class="map win"  >
+			<div demo-map ng-model="searchLocation" class="demo-map">
+			        </div>  
+        </div>
+    </div>
+  <!--   ######### -->
+      <!-- Modal for gmaps-->
+    <div class="modal fade"  id="myMapModal2" ng-controller="route" role="dialog">
+    <!-- map nav ends here -->
+        <div class="map win"  >
+       		<div id="map-canvas4" ></div>
+        </div>
+    </div>
+  <!--   ######### -->
+
+    
+	<!-- <script src="js/gmaps/service/gmaps.js"></script> -->
+    <script src="js/gmaps/service/gmaps-popup.js"></script> 
+    <script src="js/gmaps/service/mapinit.js"></script>
+    <script src="js/gmaps/service/httpq.js"></script>
+    <script src="js/gmaps/service/places.js"></script>
+    <script src="js/gmaps/service/markerSer.js"></script>
+    <script src="js/gmaps/service/direction.js"></script>
+    <script src="js/gmaps/provider/mapProvider.js"></script>
+    <script src="js/gmaps/controller/route.js"></script>
+    <script src="js/gmaps/directive/mrkrWatch.js"></script>
+    <script src="js/route-collapse-panel/collapse.js"></script>
 </body>
+<!--     <nav id="mapnavbar" ng-controller="route" >
+        <ul class="pagination">
+            <li><a data-dismiss="modal" data-toggle="modal"  ng-disabled="disable" href="#mySaveModal" >save</a></li>
+            <li role="presentation" class="dropdown">
+      			<a  data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">clear<span class="caret"></span></a>
+      				<ul class="dropdown-menu">
+				        <li><a  data-target="#myMapModal" class="btn-sm"  href="#" ng-click="deleteAll()" >all points</a> </li>
+				        <li><a  data-target="#myMapModal" class="btn-sm"  href="#" ng-click="deleteSTP()" >starting point</a> </li>
+				        <li><a  data-target="#myMapModal" class="btn-sm"  href="#" ng-click="deleteDSTP()" >destination point</a> </li>
+      				</ul>
+   	 		</li>
+     	</ul>
+    </nav> -->
+ 
+    
+    
+    
+    
 </html>
