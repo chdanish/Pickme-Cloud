@@ -81,6 +81,15 @@
 			<artifactId>httpclient</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+	        <groupId>org.springframework.social</groupId>
+	        <artifactId>spring-social-facebook</artifactId>
+	    </dependency>
+	    <dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+	    
 	</dependencies>
 
 	<properties>

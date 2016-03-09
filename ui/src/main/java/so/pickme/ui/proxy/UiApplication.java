@@ -127,11 +127,11 @@ public class UiApplication extends WebSecurityConfigurerAdapter  {
 		return registration;
 	}
 
-	@Bean
+	/*@Bean
 	@ConfigurationProperties("github")
 	ClientResources github() {
 		return new ClientResources();
-	}
+	}*/
 
 	@Bean
 	@ConfigurationProperties("facebook")
@@ -187,7 +187,8 @@ public class UiApplication extends WebSecurityConfigurerAdapter  {
 				.and().csrf()
 				.csrfTokenRepository(csrfTokenRepository()).and()
 				.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
-				.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+				.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)
+				;
 	}
 
 	private Filter csrfHeaderFilter() {
@@ -217,20 +218,9 @@ public class UiApplication extends WebSecurityConfigurerAdapter  {
 		HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
 		repository.setHeaderName("X-XSRF-TOKEN");
 		return repository;
+		
 	}
 	
-	class ClientResources {
-
-		  private OAuth2ProtectedResourceDetails client = new AuthorizationCodeResourceDetails();
-		  private ResourceServerProperties resource = new ResourceServerProperties();
-
-		  public OAuth2ProtectedResourceDetails getClient() {
-		    return client;
-		  }
-
-		  public ResourceServerProperties getResource() {
-		    return resource;
-		  }
-		}	
+	
 
 }
