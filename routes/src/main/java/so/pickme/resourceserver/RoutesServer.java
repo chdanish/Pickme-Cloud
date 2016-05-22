@@ -12,9 +12,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +27,13 @@ import so.pickme.replica.domain.User;
 import so.pickme.repository.UserRepository;
 import so.pickme.response.SaverouteDTO;
 import so.pickme.service.RouteService;
-import so.pickme.service.Impl.RouteServiceImpl;
 import so.pickme.utils.SecurityUtils;
 
-
+@EnableAutoConfiguration
 @SpringBootApplication
 @RestController
 @EnableResourceServer
-@ComponentScan({ "so.pickme" })
+@ComponentScan({ "so.pickme", "so.pickmefrnd", "so.pickmeshare" })
 public class RoutesServer {
 	
 	@Autowired

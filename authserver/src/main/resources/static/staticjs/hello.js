@@ -42,7 +42,43 @@ function($rootScope, $scope, $http, $location, $route ,$window, $routeParams,$co
             return this.tab === tabId;
         };
         
-	    
+        
+
+
+        	  var authenticate = function(credentials, callback) {
+
+        	    var headers = credentials ? {authorization : "Basic "
+        	        + btoa(credentials.username + ":" + credentials.password)
+        	    } : {};
+
+        	    $http.post('login', {headers : headers}).success(function(data) {
+        	      if (data.name) {
+        	        $rootScope.authenticated = true;
+        	      } else {
+        	        $rootScope.authenticated = false;
+        	      }
+        	      callback && callback();
+        	    }).error(function() {
+        	      $rootScope.authenticated = false;
+        	      callback && callback();
+        	    });
+
+        	  }
+        
+        $scope.credentials = {};
+        $scope.login = function() {
+            authenticate($scope.credentials, function() {
+              if ($rootScope.authenticated) {
+            	console.log("success!!");
+                $location.path("/");
+                $scope.error = false;
+              } else {
+            	  console.log("Failed!!");
+                $location.path("/login");
+                $scope.error = true;
+              }
+            });
+        };
 	    
 	    $scope.submit = function() {
 	    	

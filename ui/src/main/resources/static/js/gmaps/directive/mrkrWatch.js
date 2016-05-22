@@ -1,5 +1,5 @@
    
-app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionService,$interval){
+app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionService,$interval,$location,$route){
 	  return {
 		    restrict: 'EA',
 		    require: '?ngModel',
@@ -44,13 +44,19 @@ app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionServic
 		        	}
 		        	
 		        	if (markerService.markers && markerService.markers.length == 2) {
-		        		directionService.getPath(markerService.markers,googleMap);		        		
+		        		var path = directionService.getPath(markerService.markers,googleMap).then(function(response) {
+		        			console.log("my encoded path after deffer resolve: "+ response);
+		        			markerService.encodedpath=response;
+		        		});
+		        		
+		        		
 		        	} 
 		        	
 		            });
 		        
 		        
 		        $('#myMapModal').on('show.bs.modal', function (e) {
+		        	$location.path('/route');
 		        	 stopTime = $interval(scope.$digest(),1000);
 		        	 if (google.maps && googleMap) {
 		        		 
@@ -93,7 +99,7 @@ app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionServic
 		      
 		      scope.$watch(
 	                    function( scope ) {
-	                        console.log( "Function watched" );
+	                       // console.log( "Function watched" );
 	                        // This becomes the value we're "watching".
 	                        return( markerService.markers.length );
 	                    },

@@ -2,16 +2,12 @@ package so.pickme.service.impl;
 
 import java.util.Calendar;
 
-import javax.annotation.Resource;
-
-import org.neo4j.helpers.collection.IteratorUtil;
+//import org.neo4j.helpers.collection.IteratorUtil;
 import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,10 +99,10 @@ public class BaseServiceImpl implements BaseService {
         return session.loadAll(User.class, new Filter(propertyName, propertyValue));
     }
 
-	@Override
+	/*@Override
 	public User findByUsername(String username) {
 		 return IteratorUtil.firstOrNull(findByProperty("login", username).iterator());
-	}
+	}*/
 
 
 }

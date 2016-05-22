@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import so.pickme.ui.proxy.UiApplication;
 
+@SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = UiApplication.class)
 @WebAppConfiguration

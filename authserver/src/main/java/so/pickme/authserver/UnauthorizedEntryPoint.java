@@ -40,9 +40,9 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException
 	{
-		String targetUrl = proxyHosturl2+"/uaa/login" ;
+		String targetUrl = proxyHosturl2+"/uaa/login"  ;
 		
-		System.out.println("redirecting browser to :" + targetUrl  );
+		System.out.println("redirecting browser to :" + targetUrl );
 		
 		redirectStrategy.sendRedirect(request, response, targetUrl);
 	}

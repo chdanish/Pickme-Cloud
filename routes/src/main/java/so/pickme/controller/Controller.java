@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import so.pickme.controller.exception.NotFoundException;
-import so.pickme.replica.domain.Route;
 import so.pickme.service.Service;
-import so.pickme.utils.SecurityUtils;
 
 public abstract class Controller<T> {
 

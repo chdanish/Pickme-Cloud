@@ -1,19 +1,24 @@
-package so.pickme.utils;
+/*package so.pickme.utils;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 import org.springframework.aop.interceptor.CustomizableTraceInterceptor;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 
-/**
+*//**
  * Extends {@link CustomizableTraceInterceptor} to provide custom logging levels
- */
+ *//*
+
+@Configuration
+@ImportResource("classpath:/trace-context.xml")
 public class TraceInterceptor extends CustomizableTraceInterceptor  {
 
 
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = 1439758774010083992L;
 	protected static Logger logger4J = Logger.getLogger("aop");
 
@@ -31,3 +36,4 @@ public class TraceInterceptor extends CustomizableTraceInterceptor  {
 		return true;
 	}
 }
+*/

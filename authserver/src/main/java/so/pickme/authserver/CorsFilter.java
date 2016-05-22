@@ -1,4 +1,4 @@
-package so.pickme.authserver;
+/*package so.pickme.authserver;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class CorsFilter implements Filter {
 	
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -64,3 +64,4 @@ public class CorsFilter implements Filter {
 	public void destroy() {}
 
 }
+*/

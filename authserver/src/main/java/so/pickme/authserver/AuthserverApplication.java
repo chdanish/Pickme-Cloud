@@ -3,7 +3,6 @@ package so.pickme.authserver;
 
 import java.security.KeyPair;
 import java.security.Principal;
-
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -31,7 +30,14 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.session.ExpiringSession;
+import org.springframework.session.SessionRepository;
+import org.springframework.session.data.redis.RedisOperationsSessionRepository;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +47,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
 import so.pickme.utils.Propertiesimport;
 
 
@@ -58,6 +63,68 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	@Autowired
 	private ApplicationContext appContext;
 	
+/*	@Bean
+	public ServletContextInitializer servletContextInitializer() {
+	    return new ServletContextInitializer() {
+
+			@Override
+			public void onStartup(ServletContext sc) throws ServletException {
+				sc.addServlet("mvc-dispatcher", org.springframework.web.servlet.DispatcherServlet.class).addMapping("/mxx");
+				sc.setSessionTrackingModes(EnumSet.of(SessionTrackingMode.URL));
+				sc.addListener(new SessionListener());
+				//we need session event listner to set session logging and session timeout
+				
+			}
+
+	    };
+
+	}*/	
+	
+
+	
+	
+	
+/*	@Bean
+	public HttpSessionSecurityContextRepository httpSessionSecurityContextRepository() {
+		return new HttpSessionSecurityContextRepository() {			
+			@Override
+			public void setDisableUrlRewriting(boolean disableUrlRewriting) {
+				 TO Disable JSESSIONID where jsessionid is specific to ServletContext
+				 * Use SESSIONID instead as we are using REdIS session which replace 
+				 * container(e.g tomcat) session with Spring Session
+				 * we should use Spring session as default across all apps
+				
+				super.setDisableUrlRewriting(true);
+			}
+		};
+		
+	}*/
+	
+	
+	    @Bean
+	    public LocaleInterceptor localeInterceptor() {
+	        return new LocaleInterceptor(csrfTokenRepository());
+	    }
+	    
+//	    @Bean
+//	    public static CorsFilter corsfilter() {
+//			return new CorsFilter();
+//	    	
+//	    }
+	    
+	    @Bean
+	    public static CsrfTokenRepository csrfTokenRepository() {
+	    	HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+	        repository.setHeaderName("X-XSRF-TOKEN");
+	        return repository;
+	    }
+
+	    @Override
+	    public void addInterceptors(InterceptorRegistry registry) {
+	        registry.addInterceptor( localeInterceptor() );
+	    }
+	    
+	
 	private final static String SESSION_SERIALIZATION_ID = "6847625548492548146L";
 
 	@Bean
@@ -66,6 +133,13 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	    ((DefaultListableBeanFactory) beanFactory).setSerializationId(SESSION_SERIALIZATION_ID);
 	    return "overwritten";
 	}
+	
+	/*@Bean
+	public static RefreshScope refreshScope() {
+	    RefreshScope refresh = new RefreshScope();
+	    refresh.setId("pickme:1"); // setup in application.properties
+	    return refresh;
+	}*/
 	
 	@Primary
 	@Bean
@@ -80,6 +154,9 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	@Bean
     public RedisConnectionFactory redisConnectionFactory() {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        SessionRepository<? extends ExpiringSession> repository =
+                new RedisOperationsSessionRepository(jedisConnectionFactory);
+        
         /*jedisConnectionFactory.setHostName("pub-redis-16210.us-east-1-3.6.ec2.redislabs.com");
         jedisConnectionFactory.setPort(16210);
         jedisConnectionFactory.setPassword("pickme");*/
@@ -124,7 +201,10 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 			
 			// @formatter:off
 			http
-			.exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint())
+			//.addFilterBefore(corsfilter(), WebAsyncManagerIntegrationFilter.class)
+			//.csrf().ignoringAntMatchers("/login").and()
+			.exceptionHandling()
+			.authenticationEntryPoint(new UnauthorizedEntryPoint())
 			.and()
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logoutall")).invalidateHttpSession(true)
 			.and()
@@ -134,9 +214,16 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 			.and()
 				.requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
 			.and()
-				.authorizeRequests().anyRequest().authenticated();
+				.authorizeRequests().anyRequest().authenticated()
+				.and().addFilterAfter(new CsrfFilter(csrfTokenRepository()), CsrfFilter.class)
+	            .csrf().csrfTokenRepository(csrfTokenRepository()).and()
+				;
 			// @formatter:on
+		
 		}
+		
+		
+		
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -168,7 +255,9 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 					.withClient("acme")
 					.secret("acmesecret")
 					.authorizedGrantTypes("authorization_code", "refresh_token",
-							"password").scopes("openid").autoApprove(true);
+							"password").scopes("openid")
+					//.autoApprove(true)
+					;
 		}
 
 		@Override

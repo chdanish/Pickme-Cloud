@@ -29,7 +29,7 @@ public class Allroutes extends Controller<Route> {
 	@RequestMapping(value = "/ownedbyme")
 	public List<Route> myroutelist(Principal principal) {
 	   String ownedby = SecurityUtils.getLoggedInUserName(principal);
-	   
+	    
 	   List<Route> routes = myrouteservice.findAll(ownedby);
 	   
 	 

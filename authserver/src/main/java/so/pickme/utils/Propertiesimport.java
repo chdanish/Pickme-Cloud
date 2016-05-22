@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-@PropertySources(value = {@PropertySource("classpath:/clients.properties")})
+@PropertySources(value= {@PropertySource("classpath:clients.properties")})
+//@PropertySource("classpath:clients.properties")
 public class Propertiesimport implements Serializable{
 	
 	/**
@@ -24,6 +25,9 @@ public class Propertiesimport implements Serializable{
 	/**
 	 * 
 	 */
+	
+	//ResourcePropertySource propertySource2 = new ResourcePropertySource("resource", "classpath:/clients.properties");
+ //   System.out.println(propertySource2.getProperty("encoding"));
 	
 	
 	@NotNull

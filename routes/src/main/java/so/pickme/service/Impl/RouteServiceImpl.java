@@ -72,26 +72,26 @@ public class RouteServiceImpl implements RouteService {
 			route.setCreatedOn(Calendar.getInstance().getTime());
 			
 			route.setStartpointLAT(sdto.getStp_LAT());
-			route.setStartpointLONG(sdto.getStp_LAT());
+			route.setStartpointLONG(sdto.getStp_LNG());
 			
 			route.setDestpointLAT(sdto.getDstp_LAT());
 			route.setDestpointLONG(sdto.getDstp_LNG());
 			
 			route.setTitle(sdto.gettName());
 			
-			if (!sdto.getdName().equals("") && sdto.getdName() != null ) {
+			if ( sdto.getdName() != null) {
 				route.setDiscription(sdto.getdName());
 			}else {
 				route.setDiscription("");
 			}
-			if (!sdto.getStpName().equals("") && sdto.getStpName() != null ) {
+			if ( sdto.getStpName() != null){
 				route.setStartpointaddress(sdto.getStpName());
 			}else {
-				route.setDiscription("");
-			}if (!sdto.getDstpName().equals("") && sdto.getDstpName() != null ) {
+				route.setStartpointaddress("");
+			}if ( sdto.getDstpName() != null) {
 				route.setDestinationpointaddress(sdto.getDstpName());
 			}else {
-				route.setDiscription("");
+				route.setDestinationpointaddress("");
 			}
 			
 			
@@ -99,6 +99,7 @@ public class RouteServiceImpl implements RouteService {
 			
 			/*User userx = template.loadByProperty(User.class, "username", auth.getName());*/
 			
+			System.out.println("My route before save: " + route);
 			route.setOwnby(user);
 			route.setShareType("Public");
 			

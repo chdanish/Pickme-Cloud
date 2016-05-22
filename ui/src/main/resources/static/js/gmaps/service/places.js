@@ -18,7 +18,7 @@ app.service('placeService', function($q){
         
 		var latlng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
 
-		 geocoder.geocode({'location': latlng}, function(results, status) {
+		 new geocoder.geocode({'location': latlng}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK)
             {
                 return deferred.resolve(results[1].place_id);
@@ -95,8 +95,8 @@ app.service('placeService', function($q){
 	
 	    return {
 	    	
-	    	getplaceID  : getplaceID,
-	    	getplaceADD : getplaceADD,
-	    	getmrkrtoADD: getmrkrtoADD,
+	    	getplaceID  : function (marker) { return new getplaceID(marker)},
+	    	getplaceADD : function (pid) { return new getplaceADD(pid)},
+	    	getmrkrtoADD: function () { new getmrkrtoADD()},
 	    };
 });
