@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 import so.pickme.replica.domain.Entity;
-import so.pickme.replica.domain.Route;
 import so.pickme.repository.RouteRepository;
 
 public abstract class GenericService<T> implements Service<T> {

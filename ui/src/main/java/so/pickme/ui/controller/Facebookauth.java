@@ -26,5 +26,11 @@ public class Facebookauth {
 		
 		return "redirect:/login/facebook";
 	}
+	
+	@RequestMapping("/login")
+	public String loginredirect(HttpServletRequest request) {
+		
+		return "redirect:/";
+	}
 
 }

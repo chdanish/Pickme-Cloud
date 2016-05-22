@@ -15,5 +15,6 @@ public class  ClientResources {
 
 	  public ResourceServerProperties getResource() {
 	    return resource;
+	    
 	  }
 	}	

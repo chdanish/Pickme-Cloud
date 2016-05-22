@@ -6,6 +6,8 @@ function GoogleMarkerService() {
 
     var markers = [];
     
+    var encodedpath = "";
+    
     var getMarkers = function() {
     	console.log("markers current length: " + markers.length);
     	return markers;

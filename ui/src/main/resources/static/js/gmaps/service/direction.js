@@ -36,6 +36,9 @@ app.service('directionService', function($q){
 	                    directionsDisplay.setDirections(response);
 	                    directionsDisplay.setMap(mymap);
 	                    showSteps(response,mymap);
+	                   
+	                    deferred.resolve(getEncodedPath(response));
+	                    
 	                } else {
 		    	    	console.log('Direction service of google  failed due to: ' + status);
 		    	    	return deferred.reject();
@@ -98,7 +101,23 @@ app.service('directionService', function($q){
 	    /*Display Path*/
 	 
 	
-	    
+	   function getEncodedPath(directionResult) {
+		   var myRoute = directionResult.routes[0].legs[0];
+		   var poly = new google.maps.Polyline({
+			    strokeColor: '#000000',
+			    strokeOpacity: 1,
+			    strokeWeight: 3,
+			  });
+		   var mypath = poly.getPath();
+		   
+		   for (var i = 0; i < myRoute.steps.length; i++) {
+			   mypath.push(myRoute.steps[i].start_location);
+	        }
+		    
+	    	var encodeString = google.maps.geometry.encoding.encodePath(mypath);
+	    	 console.log("My encoded path: is"+encodeString);
+	    	return encodeString;
+	    }
 
 	
 	/*==========================================================*/
@@ -122,8 +141,9 @@ app.service('directionService', function($q){
 	
 	    return {
 	    	
-	    	 getPath	:	getPath,
-	    	 clearDir	:	clearDir,
+	    	 getPath		:	getPath,
+	    	 getEncodedPath	:	getEncodedPath,
+	    	 clearDir		:	clearDir,
 	    	
 	    };
 });

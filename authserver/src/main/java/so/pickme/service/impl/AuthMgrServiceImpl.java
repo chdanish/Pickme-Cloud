@@ -51,7 +51,8 @@ public class AuthMgrServiceImpl extends GenericService<User> implements AuthMgrS
 	public Authentication authenticate(Authentication auth)
 			throws AuthenticationException {
 		
-		User user = template.loadByProperty(User.class, "username", auth.getName());
+		//User user = template.loadByProperty(User.class, "username", auth.getName());
+		User user = userRepository.findByUsername(auth.getName());
 		
 		/*User user = getRepository().findBySchemaPropertyValue("username", auth.getName());*/
 		/*User user = userRepository.findByUsername(auth.getName());*/

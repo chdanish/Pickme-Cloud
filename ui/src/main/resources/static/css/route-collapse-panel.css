@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:900italic);
 .collapsible-jq {
   border: 1px solid gray;
 }
@@ -30,12 +31,43 @@
 }
 .collapsible > section.opened {
   transition: max-height 0.9s ease-in-out;
-  max-height: 150px;
+  max-height: 200px;
 }
 .collapsible > header {
   border-bottom: 1px solid green;
   cursor: pointer;
 }
 .collapsible > header h4 {
-  margin: 0;
+  background: #668cff;
+  margin: 2px;
+  padding-left: 15px;
+}
+
+.Titan-One {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 900;
+  background: #668cff;
+  font-size: 87.5%;
+  text-shadow: -2px -2px 0 #668cff, -2px -1px 0 #668cff, -2px 0px 0 #668cff, -2px 1px 0 #668cff, -2px 2px 0 #668cff, -1px -2px 0 #668cff, -1px -1px 0 #668cff, -1px 0px 0 #668cff, -1px 1px 0 #668cff, -1px 2px 0 #668cff, 0px -2px 0 #668cff, 0px -1px 0 #668cff, 0px 0px 0 #668cff, 0px 1px 0 #668cff, 0px 2px 0 #668cff, 1px -2px 0 #668cff, 1px -1px 0 #668cff, 1px 0px 0 #668cff, 1px 1px 0 #668cff, 1px 2px 0 #668cff, 2px -2px 0 #668cff, 2px -1px 0 #668cff, 2px 0px 0 #668cff, 2px 1px 0 #668cff, 2px 2px 0 #668cff;
+  color: #ffffff;
+}
+
+.mycolapse {
+	font-family: 'Raleway', sans-serif;
+	border-radius: 15px 50px 30px;
+	background: #80bfff;
+	padding: 20px;
+	opacity: 1.0;
+    top-padding=5px;
+    height: 100%;
+    border-right: solid 1px #e1e1e1;
+}
+
+.mytitlediv{
+	font-family: 'Raleway', sans-serif;
+	border-radius: 15px 50px 30px;
+	background: #668cff;
+	padding: 20px; opacity: 0.9;
+    top-padding=5px; height: 100%;
+    border-right: solid 1px #e1e1e1;
 }

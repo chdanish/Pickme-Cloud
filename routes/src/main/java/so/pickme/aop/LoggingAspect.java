@@ -30,13 +30,15 @@ public class LoggingAspect {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    @SuppressWarnings("unused")
+	@Autowired
     private Environment env;
 
     @Pointcut("within(school..*) || within(school.service..*) || within(school.web.rest..*)")
     public void loggingPointcut() {}
 
-    @AfterThrowing(pointcut = "loggingPointcut()", throwing = "e")
+    @SuppressWarnings("unused")
+	@AfterThrowing(pointcut = "loggingPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         if (false) {
             log.error("Exception in {}.{}() with cause = {}", joinPoint.getSignature().getDeclaringTypeName(),

@@ -1,6 +1,6 @@
-var app = angular.module('hello', [ 'ngRoute','ngCookies','ngMaterial' ]);
+var app = angular.module('hello', [ 'ngRoute','ngCookies','ngMaterial','ngAnimate', 'ui.bootstrap' ]);
 
-app.config(function($routeProvider,$cookiesProvider, $httpProvider,MapProvider) {
+app.config(function($routeProvider, $locationProvider,$cookiesProvider, $httpProvider,MapProvider) {
 
 	$routeProvider
 	.when('/home', {
@@ -11,11 +11,28 @@ app.config(function($routeProvider,$cookiesProvider, $httpProvider,MapProvider) 
 		templateUrl : 'route',
 		controller : 'route'
 	})
+	.when('/friend', {
+		templateUrl : 'friend',
+		controller : 'friend'
+	})
+	.when('/request', {
+		templateUrl : 'request',
+		controller : 'request'
+	})
+	.when('/find', {
+		templateUrl : 'find',
+		controller : 'find'
+	})
 	.otherwise('/');
 
 	/*.otherwise({
 	    redirectTo: '/home'
 	  });*/
+	
+	/*$locationProvider.html5Mode({
+		  enabled: true,
+		  requireBase: false
+		});*/
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 	
@@ -34,11 +51,12 @@ app.factory('superCache', ['$cacheFactory', function($cacheFactory) {
 /*.controller('navigation', function($rootScope, $scope, $http, $location,$document,$interval, $route, $cacheFactory, $window , $cookies ,superCache,dirService,delService ,markerFactory, popupSER,Map) {*/
 	.controller('navigation', function($rootScope, $scope, $http, $location,$document,$interval, $route, $cacheFactory, $window , $cookies ,superCache,Map) {
   
-	/*  superCache.removeAll();
-	  
-	  var JSESSIONID = $cookies.get('JSESSIONID');
-	  // Setting a cookie
-	  $cookies.put('JSESSIONID', '');*/
+		 $scope.$route = $route;
+		 $scope.name = "navigation";
+		 $('#myMapModal').on('show.bs.modal', function (e) {
+	        	$location.path('/route');
+	        	console.log("navigation controller");
+	     });
 	  
 	  
 	

@@ -1,11 +1,8 @@
 package so.pickme.service;
 
 
-import org.springframework.data.neo4j.template.Neo4jOperations;
-
 import so.pickme.common.exception.XhrcException;
 import so.pickme.replica.domain.User;
-import so.pickme.repository.UserRepository;
 import so.pickme.response.SignupDTO;
 
 public interface BaseService {
@@ -19,7 +16,7 @@ public interface BaseService {
 	 * @param username
 	 * @return
 	 */
-	User findByUsername(String username);
+	//User findByUsername(String username);
 
 	/**
 	 * 

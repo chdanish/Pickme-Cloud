@@ -59,11 +59,13 @@ public class CustomAuthenticationHandler extends SavedRequestAwareAuthentication
         
         String targetUrl = savedRequest.getRedirectUrl();
 
-
+        System.out.println("ORIGNAL URL: "+targetUrl);
         String[] targeturlArray=     targetUrl.split(targetUri);
-
+        System.out.println("After split URL: "+targeturlArray[1]);
 		targetUrl= proxyhosturl + targetUri + targeturlArray[1];
+		System.out.println("MY LOGIN SUCCESS HANDLER");
         logger.debug("Redirecting to DefaultSavedRequest Url: " + targetUrl);
+        /*targetUrl=targetUrl.replace("login","");*/
         if (targetUrl.contains("http://localhost:9999")) {
 			System.out.println("Local client match found:http://localhost:9999");
 			targetUrl=targetUrl.replace("http://localhost:9999",proxyhosturl);
@@ -78,3 +80,4 @@ public class CustomAuthenticationHandler extends SavedRequestAwareAuthentication
     }
 }
 //http://thinkinginsoftware.blogspot".com/2011/07/redirect-after-login-to-requested-page.html
+// merge with http://www.baeldung.com/spring_redirect_after_login

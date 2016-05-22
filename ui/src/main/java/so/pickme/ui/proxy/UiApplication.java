@@ -17,10 +17,10 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.scope.refresh.RefreshScope;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -30,32 +30,23 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
-import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
-import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
-import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
-import org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy;
-import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.session.MapSessionRepository;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.filter.CompositeFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.util.WebUtils;
 
 @EnableRedisHttpSession
@@ -71,7 +62,16 @@ public class UiApplication extends WebSecurityConfigurerAdapter  {
 	@Autowired
 	private ApplicationContext appContext;
 	
+	
+	
 	private final static String SESSION_SERIALIZATION_ID = "6847625548492548146L";
+	
+	/*@Bean
+	public static RefreshScope refreshScope() {
+	    RefreshScope refresh = new RefreshScope();
+	    refresh.setId("pickme:1"); // setup in application.properties
+	    return refresh;
+	}*/
 
 	@Bean
 	public String overwriteSerializationId() {
@@ -177,8 +177,10 @@ public class UiApplication extends WebSecurityConfigurerAdapter  {
 		
 		
 		
-		
-		http.logout().deleteCookies("JSESSIONID","SESSION","XSRF-TOKEN").addLogoutHandler(new CustomLogoutHandler()).logoutSuccessUrl("/login").invalidateHttpSession(true)
+	
+		http
+		//.sessionManagement().sessionFixation().migrateSession().and()
+		.logout().deleteCookies("JSESSIONID","SESSION","XSRF-TOKEN").addLogoutHandler(new CustomLogoutHandler()).logoutSuccessUrl("/login").invalidateHttpSession(true)
 		.and().antMatcher("/**").authorizeRequests()
 				.antMatchers("/index.html", "/home.html", "/", "/css/**","/js/**","/login","/facebookauth",
 						"/uaa","/uaa/**","/oauth","/oauth/**","/token","/token/**","/authorize","/authorize/**","/uaa/login","/uaa/login/**").permitAll()
@@ -207,6 +209,7 @@ public class UiApplication extends WebSecurityConfigurerAdapter  {
 						cookie = new Cookie("XSRF-TOKEN", token);
 						cookie.setPath("/");
 						response.addCookie(cookie);
+						//response.addCookie(new Cookie("MYSESSION", request.getSession().getId()));
 					}
 				}
 				filterChain.doFilter(request, response);

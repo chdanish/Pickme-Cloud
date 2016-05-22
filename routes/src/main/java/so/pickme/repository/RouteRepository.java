@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import so.pickme.replica.domain.Route;
-import so.pickme.replica.domain.User;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,6 +23,9 @@ public interface RouteRepository extends PagingAndSortingRepository<Route, Long>
 	 @Query("Match (route:Route) Where route.name = {0} return route")	
 	Route findByRoutename(String Routename);
 	
+	@Query("Match (r:Route) Where id(r) = {0} return r")
+    Route findByID(long id);
+	
 	/**
 	 * @param maxResult
 	 *            Max number of persons.
@@ -35,8 +36,9 @@ public interface RouteRepository extends PagingAndSortingRepository<Route, Long>
 	 
 	  /*findall routes with "OWNEDBY User"
     MATCH (:User {username:'gera'})-[:OWNEDBY]-(r:Route) return r*/
+	/*@Query("MATCH (r:Route)-[:OWNEDBY]-(:User {username:'gera'})  return r")*/
 	
-	@Query("MATCH (r:Route)-[:OWNEDBY]-(:User {username:'gera'})  return r")
+	@Query("MATCH (r:Route)-[:OWNEDBY]-(u:User) where u.username = {0}  return r")
 	List<Route> findAll(String ownedby); 
 	
 	Iterable<Route> findAll(Sort sort);
