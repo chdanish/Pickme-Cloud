@@ -1,0 +1,232 @@
+/*body {
+	background: url(http://www.htmldog.com/r10/bg.gif);
+	background-repeat:repeat;
+}*/
+/*body{
+	background: #334455 url(http://www.htmldog.com/r10/bg.gif) 0 0 fixed;
+	background: -webkit-linear-gradient(rgba(204,229,255,.15), rgba(0,0,0,.3)) fixed, #345 url(http://www.htmldog.com/r10/bg.gif) 0 0 fixed;
+	background: linear-gradient(rgba(204,229,255,.15), rgba(0,0,0,.3)) fixed, #345 url(http://www.htmldog.com/r10/bg.gif) 0 0 fixed;
+}*/
+.ui-page {
+	background: url('http://gdj.gdj.netdna-cdn.com/wp-content/uploads/2012/10/background+pattern+design+33.jpg') repeat scroll 50% 50% #112233 !important;
+	color: #aabbcc !important;
+}
+.ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper {
+    text-shadow: none;
+}
+
+/* Size adjustments*/
+
+
+/* navbar */
+
+/*.navbar-nav > li > a{
+	padding-top:4px !important;
+	padding-bottom:0 !important;
+	height: 5px;
+}*/
+.navbar  {min-height:15px !important;}
+
+/*smart toggle*/
+.navbar-brand {
+
+    font-family: 'Raleway', sans-serif;
+	font-weight: 900;
+	background: #668cff;
+	font-size: 87.5%;
+	text-shadow: -2px -2px 0 #668cff, -2px -1px 0 #668cff, -2px 0px 0 #668cff, -2px 1px 0 #668cff, -2px 2px 0 #668cff, -1px -2px 0 #668cff, -1px -1px 0 #668cff, -1px 0px 0 #668cff, -1px 1px 0 #668cff, -1px 2px 0 #668cff, 0px -2px 0 #668cff, 0px -1px 0 #668cff, 0px 0px 0 #668cff, 0px 1px 0 #668cff, 0px 2px 0 #668cff, 1px -2px 0 #668cff, 1px -1px 0 #668cff, 1px 0px 0 #668cff, 1px 1px 0 #668cff, 1px 2px 0 #668cff, 2px -2px 0 #668cff, 2px -1px 0 #668cff, 2px 0px 0 #668cff, 2px 1px 0 #668cff, 2px 2px 0 #668cff;
+	color: #ffd119;
+    padding: 5px 5px !important;
+    height: 0px !important;
+
+}
+.navbar-toggle {
+
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.nav>li>a {
+    padding: 2px 2px;
+
+}
+
+/* Theme adjustments  */
+
+.navbar-default {
+	background-color: #668cff;
+	border-color: #ffd119;
+	border-bottom:none;
+}
+.navbar-default .navbar-brand {
+	color: #f9f9f9;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+	color: #668cff;
+
+}
+.navbar-default .navbar-header a.navbar-brand{
+    color: #f9f9f9;
+}
+.navbar-default .navbar-text {
+	color: #f9f9f9;
+}
+.navbar-default .nav-pills > li > a {
+	color: #f9f9f9;
+}
+/*mouse over link css*/
+.navbar-default .nav-pills > li > a:hover,
+.navbar-default .nav-pills > li > a:focus {
+	background-color: #ffd119;
+	color: #668cff;
+	/*font-weight: bold*/
+}
+.navbar-default .nav-pills > li > .dropdown-menu {
+	background-color: #668cff;
+}
+.navbar-default .nav-pills > li > .dropdown-menu > li > a {
+	color: #f9f9f9;
+}
+.navbar-default .nav-pills > li > .dropdown-menu > li > a:hover,
+.navbar-default .nav-pills > li > .dropdown-menu > li > a:focus {
+	color: #668cff;
+	background-color: #ffd119;
+		/*font-weight: bold*/
+}
+.navbar-default .nav-pills > li > .dropdown-menu > li > .divider {
+	background-color: #668cff;
+}
+.navbar-default .nav-pills > .active > a,
+.navbar-default .nav-pills > .active > a:hover,
+.navbar-default .nav-pills > .active > a:focus {
+	color: #668cff;
+	background-color: #ffd119;
+}
+.navbar-default .nav-pills > .open > a,
+.navbar-default .nav-pills > .open > a:hover,
+.navbar-default .nav-pills > .open > a:focus {
+	color: #668cff;
+	background-color: #ffd119;
+}
+.navbar-default .navbar-toggle {
+	border-color: #ffd119;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+	background-color: #ffd119;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #f9f9f9;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+	border-color: #f9f9f9;
+}
+.navbar-default .navbar-link {
+	color: #f9f9f9;
+}
+.navbar-default .navbar-link:hover {
+	color: #668cff;
+}
+@media (max-width: 500px) {
+	.navbar-default .nav-pills .open .dropdown-menu > li > a {
+		color: #f9f9f9;
+	}
+	.navbar-default .nav-pills .a.btn .a.btn-sm > li > a:hover,
+	.navbar-default .nav-pills .a.btn .a.btn-sm  > li > a:focus {
+		color: #668cff;
+	}
+	.navbar-default .nav-pills .open .dropdown-menu > li > a:hover,
+	.navbar-default .nav-pills .open .dropdown-menu > li > a:focus {
+		color: #668cff;
+	}
+	.navbar-default .nav-pills .open .dropdown-menu > .active > a,
+	.navbar-default .nav-pills .open .dropdown-menu > .active > a:hover,
+	.navbar-default .nav-pills .open .dropdown-menu > .active > a:focus {
+		color: #668cff;
+		background-color: #ffd119;
+	}
+}
+@media only screen and (min-width : 768px) {
+	/* Make Navigation Toggle on Desktop Hover */
+	.dropdown:hover .dropdown-menu {
+		display: block;
+	}
+}
+
+/*CSS for modal*/
+/*top cross button in gmap */
+#mapclose  {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	width: 20px;
+	right: 20px;
+    top: 20px;
+	padding: 5px 5px !important;
+	margin: 20px 20px !important;
+	background-color: cornflowerblue;
+}
+button.btn.btn-secondary {
+    background-color: white;
+}
+
+/*Full Screen modal*/
+/*@media (min-width: 0px)
+    .modal-dialog {
+        width: 100%;
+        height: 100%;
+        padding: 0 0 !important;
+        margin:0;
+    }
+
+    .modal-content {
+        height: 100%;
+        border-radius: 0;
+        color:white;
+        overflow:auto;
+    }
+    html {
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+    }
+    body {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+    }
+
+    /!* unset bs3 setting *!/
+    .modal-open {
+        overflow: auto;
+        width: 100%;
+    }
+
+}*/
+
+html, body,.map.win  {
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+}
+
+#myMapModal {
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+}
+
+.map.win {
+	padding: 10px 10px !important;
+	margin:0;
+}
+
+.bg {	
+	 background: url("image/tile-iconfont.svg")  ;
+	 background-color: #b7b7b7;
+	}
+	
+
