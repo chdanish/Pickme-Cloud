@@ -1,0 +1,40 @@
+body {
+    font-family: arial, helvetica, sans-serif;
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 2em;
+    background-color: #00ff00;
+    margin: 20px;
+    padding: 40px;
+    text-align: center;
+   border-style: dashed;
+   border-color: red;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+a {
+    text-decoration: none;
+}
+
+strong {
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+/* li {
+	font-size: .2em;
+   text-align: center;
+   font-style: italic;
+}
+ */
+.nav2bar{
+	background-color: #0080c0;
+	font-size: 1.5em;
+   text-align: center;
+   font-style: italic;
+}
