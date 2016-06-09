@@ -53,39 +53,56 @@
       <div class="modal-content">
         <div class="modal-body">
           <h1>Please fill below data to save route</h1>
-          <form class="form-horizontal" name="mySaveForm" novalidate>
+          <form class="form-horizontal" name="mySaveForm" validate>
           
             <div class="form-group">
 			    <label class="col-sm-2 col-md-4 control-label">Tittle:</label>
 			    <div class="col-sm-10 col-md-4">
-			    <input type="text" ng-model="saverouteDTO.tName" ng-disabled="!edit" placeholder="Route Name" ng-required>
+			    <input type="text" name="routename" ng-model="saverouteDTO.tName" ng-disabled="!edit" placeholder="Route Name" style="width: inherit;" required>
 			    </div>
 			</div>
 			<div class="form-group">
 			    <label class="col-sm-2 col-md-4 control-label">Start address:</label>
 			    <div class="col-sm-10 col-md-4">
-			    <input type="text" ng-model="saverouteDTO.stpName"  ng-disabled="!edit" placeholder="description">
+			    <input type="text" ng-model="saverouteDTO.stpName"  ng-disabled="!edit" placeholder="description" style="width: inherit;">
 			    </div>
 			</div>
 			<div class="form-group">
 			    <label class="col-sm-2 col-md-4 control-label">Destination address:</label>
 			    <div class="col-sm-10 col-md-4">
-			    <input type="text" ng-model="saverouteDTO.dstpName"  ng-disabled="!edit" placeholder="description">
+			    <input type="text" ng-model="saverouteDTO.dstpName"  ng-disabled="!edit" placeholder="description" style="width: inherit;">
 			    </div>
 			</div>
 			
 			<div class="form-group">
 			    <label class="col-sm-2 col-md-4 control-label">Description:</label>
 			    <div class="col-sm-10 col-md-4">
-			    <input type="text" ng-model="saverouteDTO.dName"  ng-disabled="!edit" placeholder="description">
+			    <textarea type="text" ng-model="saverouteDTO.dName"  ng-disabled="!edit" placeholder="description" style="width: inherit;"></textarea>
 			    </div>
 			</div> 
+			<div class="im-centered">
+			  <div class="row">
+			  	<div class="form-group">
+				    <label class="col-sm-2 col-md-4 control-label">Duration:</label>
+				    <div class="col-sm-10 col-md-4">
+				    <duration-picker class="col-md-4" duration="{{saverouteDTO.duration}}" days="durationPicker.days" hours="durationPicker.hours" mins="durationPicker.mins" secs="durationPicker.secs"></duration-picker>
+			    	</div>
+				</div>
+				<div class="form-group">
+				    <label class="col-sm-2 col-md-4 control-label">Distance(m):</label>
+				    <div class="col-sm-10 col-md-4">
+				    <textarea name="distance" rows="1" cols="4" readonly="readonly" required>{{saverouteDTO.distance}}</textarea>
+			    	</div>
+				</div>  
+			  </div>
+			</div>
           
           </form>
      
         </div>
          <div class="modal-footer">
-			<button type="button" class="btn btn-default" marker-watch ng-disabled="disable()" data-dismiss="modal"  ng-click="save()">Save</button>
+         	<button type="button" class="btn btn-default" ng-disabled="!mySaveForm.routename.$valid " data-dismiss="modal"  ng-click="save()">Save</button>
+			<!-- <button type="button" class="btn btn-default" ng-disabled="!mySaveForm.routename.$valid || !mySaveForm.duration.$valid" data-dismiss="modal"  ng-click="save()">Save</button> -->
 			<button type="button" class="btn btn-default" data-dismiss="modal"  data-toggle="modal" href="#myMapModal">Edit route</button>
 			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>

@@ -1,5 +1,5 @@
    
-app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionService,$interval,$location,$route){
+app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionService,infoService,$interval,$location,$route){
 	  return {
 		    restrict: 'EA',
 		    require: '?ngModel',
@@ -46,12 +46,11 @@ app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionServic
 		        	if (markerService.markers && markerService.markers.length == 2) {
 		        		var path = directionService.getPath(markerService.markers,googleMap).then(function(response) {
 		        			console.log("my encoded path after deffer resolve: "+ response);
-		        			markerService.encodedpath=response;
+		        			markerService.encodedpath=response.encpath;
+		        			infoService.distance=response.distance;
+		        			infoService.duration=response.duration;
 		        		});
-		        		
-		        		
-		        	} 
-		        	
+		        	}		        	
 		            });
 		        
 		        
@@ -66,20 +65,6 @@ app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionServic
 		             }         	
 		        	  
 		        	});
-
-		       /* searchMarker = new google.maps.Marker({
-		          position: searchLatLng,
-		          map: googleMap,
-		          draggable: true
-		        });
-		        
-		        google.maps.event.addListener(searchMarker, 'dragend', function(){
-		          scope.$apply(function(){
-		            scope.myModel.latitude = searchMarker.getPosition().lat();
-		            scope.myModel.longitude = searchMarker.getPosition().lng();
-		          });
-		        }.bind(this));*/
-		        
 		      };
 		      
 		      $('#myMapModal').on('hidden.bs.modal', function () {
@@ -111,12 +96,6 @@ app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionServic
 	                        console.log( newValue );
 	                    }
 	                );
-		  
-		      
-		      /*scope.$watch('myModel', function(value){
-		        var myPosition = new google.maps.LatLng(scope.myModel.latitude, scope.myModel.longitude);
-		        searchMarker.setPosition(myPosition);
-		      }, true);*/
 		    }      
 		  }
 		});

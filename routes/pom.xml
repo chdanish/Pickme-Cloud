@@ -74,6 +74,11 @@
 	        <groupId>org.aspectj</groupId>
 	        <artifactId>aspectjrt</artifactId>
         </dependency>
+        <!-- http://mvnrepository.com/artifact/joda-time/joda-time -->
+		<dependency>
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<dependencyManagement>

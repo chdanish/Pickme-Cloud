@@ -48,10 +48,10 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.session.ExpiringSession;
+/*import org.springframework.session.ExpiringSession;
 import org.springframework.session.SessionRepository;
 import org.springframework.session.data.redis.RedisOperationsSessionRepository;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;*/
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.filter.CompositeFilter;
@@ -66,7 +66,7 @@ import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.route.SimpleHostRoutingFilter;
 
-@EnableRedisHttpSession
+//@EnableRedisHttpSession
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
@@ -82,7 +82,7 @@ public class UiApplication {
 		return user;
 	}
 	
-	@Bean
+/*	@Bean
 	public EmbeddedServletContainerFactory servletContainerFactory() {
 	    TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
 
@@ -102,9 +102,9 @@ public class UiApplication {
 	    // configure some more properties
 
 	    return factory;
-	}
+	}*/
 	
-	@Autowired
+/*	@Autowired
 	private ApplicationContext appContext;
 	
 	private final static String SESSION_SERIALIZATION_ID = "6847625548492548146L";
@@ -136,7 +136,7 @@ public class UiApplication {
         jedisConnectionFactory.setPort(6379);
         jedisConnectionFactory.setUsePool(true);
         return jedisConnectionFactory;
-    }
+    }*/
 	 	
 	 	@Bean
 		@ConfigurationProperties("facebook")
@@ -154,10 +154,10 @@ public class UiApplication {
 		}
 		
 
-		@Bean
+		/*@Bean
 	    SessionAuthenticationStrategy sas() {
 	        return new SessionFixationProtectionStrategy();
-	    }
+	    }*/
 
 		private Filter ssoFilter(ClientResources client, String path) {
 			
@@ -168,33 +168,11 @@ public class UiApplication {
 			facebookFilter.setRestTemplate(facebookTemplate);
 			facebookFilter.setTokenServices(new UserInfoTokenServices(
 					client.getResource().getUserInfoUri(), client.getClient().getClientId()));
-			facebookFilter.setSessionAuthenticationStrategy(sas());
+			//facebookFilter.setSessionAuthenticationStrategy(sas());
 			return facebookFilter;
 		}
 		
-		@Autowired
-		ProxyRequestHelper helper;
-		@Autowired
-		ZuulProperties properties;
 
-
-	
-		@Bean
-		@Primary
-		public SimpleHostRoutingFilter simpleHostRoutingFilter(){
-			return new SimpleHostRoutingFilter(helper, properties){
-				
-				private  final DynamicIntProperty SOCKET_TIMEOUT = DynamicPropertyFactory
-						.getInstance()
-						.getIntProperty(ZuulConstants.ZUUL_HOST_SOCKET_TIMEOUT_MILLIS, 50000);
-
-				private final DynamicIntProperty CONNECTION_TIMEOUT = DynamicPropertyFactory
-						.getInstance()
-						.getIntProperty(ZuulConstants.ZUUL_HOST_CONNECT_TIMEOUT_MILLIS, 5000);
-				
-			};
-			
-		}
 		
 
 	public static void main(String[] args) {
@@ -208,7 +186,8 @@ public class UiApplication {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
-			http
+			http.formLogin().loginPage("/uaa/login").permitAll()
+			.and()
 				.httpBasic()
 			.and()
 				.logout()

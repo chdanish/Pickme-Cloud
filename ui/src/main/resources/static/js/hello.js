@@ -19,7 +19,7 @@ app.config(function($routeProvider, $locationProvider,$cookiesProvider, $httpPro
 		templateUrl : 'request',
 		controller : 'request'
 	})
-	.when('/find', {
+	.when('/findfriend', {
 		templateUrl : 'find',
 		controller : 'find'
 	})
