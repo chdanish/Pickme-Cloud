@@ -53,9 +53,9 @@ public class LocaleInterceptor implements HandlerInterceptor {
 		
 		System.out.println("My req query string COMPLETE : "+request.getQueryString());
 		System.out.println("My session ID COMPLETE : "+request.getSession().getId());
-		
+		if(csrftoken != null){
 		System.out.println("My CSRF COMPLETE : "+csrftoken.getToken().toString());
-		
+		}
 		Cookie cookie = WebUtils.getCookie(request, "MYSESSION");
 		String cookievalue = cookie != null ? cookie.getValue() : "";
 		System.out.println("My JSESSIONID PRE"+ cookievalue);
@@ -79,9 +79,9 @@ public class LocaleInterceptor implements HandlerInterceptor {
 		
 		System.out.println("My req query string POST : "+request.getQueryString());
 		System.out.println("My session ID POST : "+request.getSession().getId());
-		
+		if(csrftoken != null){
 		System.out.println("My CSRF POST : "+csrftoken.getToken().toString());
-		
+		}
 		Cookie cookie = WebUtils.getCookie(request, "MYSESSION");
 		String cookievalue = cookie != null ? cookie.getValue() : "";
 		System.out.println("My JSESSIONID PRE"+ cookievalue);
@@ -107,7 +107,10 @@ public class LocaleInterceptor implements HandlerInterceptor {
 		System.out.println("My session ID PRE : "+request.getSession().getId());
 		String sessionid = request.getSession().getId();
 		
-		System.out.println("My CSRF PRE : "+csrftoken.getToken().toString());
+		if(csrftoken != null){
+			System.out.println("My CSRF PRE : "+csrftoken.getToken().toString());
+		}
+		
 		
 		Cookie cookie = WebUtils.getCookie(request, "MYSESSION");
 		String cookievalue = cookie != null ? cookie.getValue() : "";

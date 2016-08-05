@@ -40,13 +40,6 @@ public class FriendsController  {
 		
 		User friend = userRepository.FinduserbyID(targetUserId);
 		Iterable<UserQuery> friends =friendService.addfriendbyusername(principal, friend.getUsername());
-		/*Iterator<UserQuery> friends = friendService.addfriendbyusername(principal, friend.getUsername()).iterator();
-		int i = 1;
-		if(friends != null){
-			while (friends.hasNext()){
-				map.put("friend"+i, friends.next());
-			}
-		}*/
 		map.put("Status", friends);
 		return map;
 	}

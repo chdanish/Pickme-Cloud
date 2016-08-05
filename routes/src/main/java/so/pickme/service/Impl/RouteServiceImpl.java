@@ -94,10 +94,8 @@ public class RouteServiceImpl implements RouteService {
 				route.setDestinationpointaddress("");
 			}
 			
-			
-			/*User activeUser = (User) ((Authentication) principal).getPrincipal();*/
-			
-			/*User userx = template.loadByProperty(User.class, "username", auth.getName());*/
+			route.setDistance(sdto.getDistance());
+			route.setDuration(sdto.getDuration());
 			
 			System.out.println("My route before save: " + route);
 			route.setOwnby(user);

@@ -4,12 +4,16 @@ app.config(function($routeProvider, $locationProvider,$cookiesProvider, $httpPro
 
 	$routeProvider
 	.when('/home', {
-		templateUrl : 'home.html',
+		templateUrl : 'home',
 		controller : 'home'
 	})
 	.when('/route', {
 		templateUrl : 'route',
 		controller : 'route'
+	})
+	.when('/sharedroutes', {
+		templateUrl : 'sharedroutes',
+		controller : 'sharedroutes'
 	})
 	.when('/friend', {
 		templateUrl : 'friend',
@@ -19,11 +23,11 @@ app.config(function($routeProvider, $locationProvider,$cookiesProvider, $httpPro
 		templateUrl : 'request',
 		controller : 'request'
 	})
-	.when('/find', {
+	.when('/findfriend', {
 		templateUrl : 'find',
 		controller : 'find'
 	})
-	.otherwise('/');
+	.otherwise('/home');
 
 	/*.otherwise({
 	    redirectTo: '/home'
@@ -59,19 +63,33 @@ app.factory('superCache', ['$cacheFactory', function($cacheFactory) {
 	     });
 	  
 	  
-	
+		 $http.get('userx').then(function successCallback(data) {
+			    // this callback will be called asynchronously
+			    // when the response is available
+			 
+			 if (data.data.name) {
+					$rootScope.authenticated = true;
+				} else {
+					$window.location.href='/login';
+					$rootScope.authenticated = false;
+				}
+			  }, function errorCallback(data) {
+				  console.log("UserX error: "+data);
+				  $window.location.href='/login';
+				  $rootScope.authenticated = false;
+			  });
 
-	$http.get('userx').success(function(data) {
+	/*$http.get('userx').then(function successCallback(data) {
 		if (data.name) {
 			$rootScope.authenticated = true;
 		} else {
 			$window.location.href='/login';
 			$rootScope.authenticated = false;
 		}
-	}).error(function() {
+	},).error(function() {
 		$window.location.href='/login';
 		$rootScope.authenticated = false;
-	});
+	});*/
 
 	$scope.credentials = {};
 

@@ -71,3 +71,19 @@
     top-padding=5px; height: 100%;
     border-right: solid 1px #e1e1e1;
 }
+
+.mytitlediv > form > button , .mytitlediv > form > select , .mytitlediv > form > input {
+	font-family:sans-serif;
+}
+
+.mytitlediv > form > select {
+	margin-left:2em;
+	width: auto;
+}
+
+.mytitlediv > form > input {
+	margin-left:2em;
+	width: 50%;
+}
+	
+

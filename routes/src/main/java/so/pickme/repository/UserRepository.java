@@ -48,13 +48,12 @@ public interface UserRepository extends CrudRepository<User, Long>,
 	public Iterable<UserQuery> myfriendsMOD(String username);
 
 
-	@Query("MATCH (u:User )"+
-	"where u.username = {0}"+
-	"OPTIONAL MATCH (u)-[friend:FRIEND]-(b:User )"+
-	"OPTIONAL MATCH (u)-[friendreq:FRIEND_REQUEST]-(b:User )"+
-	"where  b.username = {1}"+
-	"RETURN distinct  ID(u) as UserID, u.firstName as FName, u.lastName as LName ,"+
-	"u.username as UName, u.email as Email ,friend is not null as Friendstatus,friendreq is not null as Friendreqstatus")
+	@Query( "MATCH (u:User )"+
+			"where  (u.username)  = {0} and u.username <> {1}"+
+			"OPTIONAL MATCH (u)-[friend:FRIEND]-(b:User ) where  b.username = {1}"+
+			"OPTIONAL MATCH (u)-[friendreq:FRIEND_REQUEST]-(g:User ) where  g.username = {1}"+
+			"RETURN distinct  ID(u) as UserID, u.firstName as FName, u.lastName as LName , "+
+			"u.username as UName, u.email as Email ,friend is not null as Friendstatus,friendreq is not null as Friendreqstatus")
 	public UserQuery findByUsernameMOD(String username,String Pusername);
 	
 	/*where  (u.firstName + u.lastName) =~ '.*s.*' 
@@ -64,13 +63,12 @@ public interface UserRepository extends CrudRepository<User, Long>,
 	RETURN distinct  ID(u) as UserID, u.firstName as FName, u.lastName as LName ,
 	u.username as UName, u.email as Email ,friend is not null as Friendstatus,friendreq is not null as Friendreqstatus*/
 	
-	@Query("MATCH (u:User )"+
-	"where  (u.firstName + u.lastName) =~ {0} "+ 
-	"OPTIONAL MATCH (u)-[friend:FRIEND]-(b:User ) "+
-	"OPTIONAL MATCH (u)-[friendreq:FRIEND_REQUEST]-(b:User ) "+
-	"where  b.username = {1} "+
-	"RETURN distinct  ID(u) as UserID, u.firstName as FName, u.lastName as LName , "+
-	"u.username as UName, u.email as Email ,friend is not null as Friendstatus,friendreq is not null as Friendreqstatus")
+	@Query( "MATCH (u:User )"+
+			"where  (u.firstName + u.lastName)  =~ {0} and u.username <> {1}"+
+			"OPTIONAL MATCH (u)-[friend:FRIEND]-(b:User ) where  b.username = {1}"+
+			"OPTIONAL MATCH (u)-[friendreq:FRIEND_REQUEST]-(g:User ) where  g.username = {1}"+
+			"RETURN distinct  ID(u) as UserID, u.firstName as FName, u.lastName as LName , "+
+			"u.username as UName, u.email as Email ,friend is not null as Friendstatus,friendreq is not null as Friendreqstatus")
 	public Iterable<UserQuery> findByNameMOD(String username,String Pusername);
 	
 }

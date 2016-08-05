@@ -46,6 +46,7 @@ function GoogleMarkerService() {
       }
     
     var secureAddMarker = function(coords,map) {
+    	console.log("coordinates : " + coords);
     	var mrkr;
     	mrkr1=getMarkerById("marker_1");
     	mrkr2=getMarkerById("marker_2");
@@ -54,18 +55,21 @@ function GoogleMarkerService() {
     		 console.log("markers length after add1: " + markers.length);
     		mrkr = addMarker(coords,map,"marker_2","red"); 
     		bindMarkerEvents(mrkr);
+    		getMarkerById("marker_2");
     		return mrkr;
 			
 		} else if (mrkr2 && !mrkr1 && markers.length<=1) {
 			 console.log("markers length after add2: " + markers.length);
 			mrkr = addMarker(coords,map,"marker_1","yellow");
 			bindMarkerEvents(mrkr);
+			getMarkerById("marker_1");
 			return mrkr;
 
 		} else if (!mrkr1 && !mrkr2 && markers.length<=1) {
 			 console.log("markers length after add3: " + markers.length);
 			mrkr = addMarker(coords,map,"marker_1","yellow");
 			bindMarkerEvents(mrkr);
+			getMarkerById("marker_1");
 			return mrkr;
 		}
     	
@@ -105,7 +109,7 @@ function GoogleMarkerService() {
               marker = key;
             }
           });
-          console.warn("getMarkerById()::ID found: "+ marker.id);
+          console.warn("getMarkerById()::ID found: "+ marker.id +" LAT: "+marker.getPosition().lat()+"LONG: "+marker.getPosition().lng());
           return marker;
         } catch (error) {
           console.warn("getMarkerById()::Failure" + error);

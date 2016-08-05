@@ -9,9 +9,11 @@ public class ShareRouteDTO {
 
 	long routeID;
 	long toID;
-	Date tripstarttime; //  (calander date ,time)	
-	Date deadlinetocommit; //(calander date ,time)	
-	TimeZone timezone;
+	long startTripDateTime;  // planned trip start time
+	long commitDeadlineDatetime; // deadline to commit trip
+	long tripEstDur; //trip estimate duration from google
+	//Pickupreq Status; // Status  Active, Expire
+	String timezone;
 	/**
 	 * @return the routeID
 	 */
@@ -37,39 +39,51 @@ public class ShareRouteDTO {
 		this.toID = toID;
 	}
 	/**
-	 * @return the tripstarttime
+	 * @return the startTripDateTime
 	 */
-	public Date getTripstarttime() {
-		return tripstarttime;
+	public long getStartTripDateTime() {
+		return startTripDateTime;
 	}
 	/**
-	 * @param tripstarttime the tripstarttime to set
+	 * @param startTripDateTime the startTripDateTime to set
 	 */
-	public void setTripstarttime(Date tripstarttime) {
-		this.tripstarttime = tripstarttime;
+	public void setStartTripDateTime(long startTripDateTime) {
+		this.startTripDateTime = startTripDateTime;
 	}
 	/**
-	 * @return the deadlinetocommit
+	 * @return the commitDeadlineDatetime
 	 */
-	public Date getDeadlinetocommit() {
-		return deadlinetocommit;
+	public long getCommitDeadlineDatetime() {
+		return commitDeadlineDatetime;
 	}
 	/**
-	 * @param deadlinetocommit the deadlinetocommit to set
+	 * @param commitDeadlineDatetime the commitDeadlineDatetime to set
 	 */
-	public void setDeadlinetocommit(Date deadlinetocommit) {
-		this.deadlinetocommit = deadlinetocommit;
+	public void setCommitDeadlineDatetime(long commitDeadlineDatetime) {
+		this.commitDeadlineDatetime = commitDeadlineDatetime;
+	}
+	/**
+	 * @return the tripEstDur
+	 */
+	public long getTripEstDur() {
+		return tripEstDur;
+	}
+	/**
+	 * @param tripEstDur the tripEstDur to set
+	 */
+	public void setTripEstDur(long tripEstDur) {
+		this.tripEstDur = tripEstDur;
 	}
 	/**
 	 * @return the timezone
 	 */
-	public TimeZone getTimezone() {
+	public String getTimezone() {
 		return timezone;
 	}
 	/**
 	 * @param timezone the timezone to set
 	 */
-	public void setTimezone(TimeZone timezone) {
+	public void setTimezone(String timezone) {
 		this.timezone = timezone;
 	}
 	/* (non-Javadoc)
@@ -77,13 +91,11 @@ public class ShareRouteDTO {
 	 */
 	@Override
 	public String toString() {
-		return "ShareRouteDTO [routeID=" + routeID + ", toID=" + toID
-				+ ", tripstarttime=" + tripstarttime + ", deadlinetocommit="
-				+ deadlinetocommit + ", timezone=" + timezone + "]";
+		return "ShareRouteDTO [routeID=" + routeID + ", toID=" + toID + ", startTripDateTime=" + startTripDateTime
+				+ ", commitDeadlineDatetime=" + commitDeadlineDatetime + ", tripEstDur=" + tripEstDur + ", timezone="
+				+ timezone + "]";
 	}
 	
 	
 	
-	
-
 }

@@ -16,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import so.pickme.replica.domain.User;
 import so.pickme.repository.UserRepository;
@@ -51,6 +52,9 @@ public class AuthMgrServiceImpl extends GenericService<User> implements AuthMgrS
 	public Authentication authenticate(Authentication auth)
 			throws AuthenticationException {
 		
+		
+		if(StringUtils.isEmpty(auth.getName()) || StringUtils.isEmpty(auth.getCredentials())){throw new BadCredentialsException("Bad Credentials");}
+		
 		//User user = template.loadByProperty(User.class, "username", auth.getName());
 		User user = userRepository.findByUsername(auth.getName());
 		
@@ -62,7 +66,7 @@ public class AuthMgrServiceImpl extends GenericService<User> implements AuthMgrS
 			System.out.println("Role as per DB : "+ user.getRole());
 			for (Iterator<String> iterator = user.getRole().iterator(); iterator.hasNext();) {
 				user_role =iterator.next();
-				AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_"+user_role));
+				//AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_"+user_role));
 				System.out.println("Added auths are: "+AUTHORITIES);
 			}
 			bcrypt.matches(auth.getCredentials().toString(), user.getPassword());
