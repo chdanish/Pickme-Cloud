@@ -143,6 +143,7 @@ app.controller('route', function($rootScope, $scope, $http, $location,$document,
 	    	//return false;
 	        var m1 =  markerService.getMarkerById("marker_1");
 	    	var m2 =  markerService.getMarkerById("marker_2");
+	    	
        	 	if ( m1 && m2) { 
 	        	$scope.saverouteDTO.stp_LAT	= m1.getPosition().lat();
 				$scope.saverouteDTO.stp_LNG	= m1.getPosition().lng();
@@ -152,58 +153,59 @@ app.controller('route', function($rootScope, $scope, $http, $location,$document,
 				$scope.saverouteDTO.distance=infoService.distance;
 	        	console.log($scope.saverouteDTO);
 	        }
-       	 	
+       	
+       	 	console.log($scope.myroutes);
+       	 
        	 httpq.postJSON('saveroute', $scope.saverouteDTO)
          .errorMessage("MainCtrl -> addNews")
          .then(function(response) {
               console.log(response);
-              $scope.myroutes =response;
-              loadroutes();
-              console.log("pre-current location: "+$location.path());
-              console.log("pre-current template: "+$route.current.templateUrl);
-              console.log("pre-current scope: "+$route.current.scope.name);
-              //$route.reload();
-              console.log("post-current location: "+$location.path());
-              console.log("post-current template: "+$route.current.templateUrl);
-              console.log("post-current scope: "+$route.current.scope.name);
+              $timeout(function() {
+            	  console.log("triggering");
+            	  angular.element('#loader').triggerHandler('click');
+              }, 0);
+              
          });
-       		
-       	
+       	 
+       
 	    };
 	
 	    /* ==============Save Route ends here ============== */
 	    
 	    /* ==============Get Saved Route ============== */
 	
+	   
 	    
-	    loadroutes();
-	    function loadroutes (){
-	    	console.log("Route update request recieved");
+	    $scope.loadroutes  = function(){
+	    	 console.log("Route update request recieved");
 	    	 httpq.getJSON('getmyroutes/ownedbyme', $scope.saverouteDTO)
 	         .errorMessage("MainCtrl -> addNews")
 	         .then(function(response) {
+	        	 console.log("My routes are below:");
 	              console.log(response);
-	              $scope.myroutes = response; 
-	              
+	              $scope.myroutes= [];
+	              angular.forEach(response, function(value, key) {
+	            	  //console.log(value);
+	            	  if($scope.myroutes[value.id]){
+	            		  $scope.myroutes.splice(value.id, 1);
+	            		  delete $scope.myroutes[value.id];
+	            	  }
+	            	  $scope.myroutes[value.id]= value;
+	              });
+	             return $scope.myroutes;
 	         });
-	    	 
-	    	
 	    }
-	    
-	  
-	    	
-	    
+	    $scope.loadroutes();
+
 	    
 	    /* ==============Get Saved Route ends here ============== */
 	    /* ==============Delete Route ============== */
-	    
-	  
 		
 		$scope.deleteroute = function(id){
 			console.log("Delete Route with ID: " + id);
 	    	$http.delete('getmyroutes/'+id).success(function(data) {
-	    		loadroutes();
-			})
+	    		$scope.loadroutes();
+			});			
 	    }
 	    
 	    /* ==============Get Save Route ends here ============== */
@@ -265,7 +267,7 @@ app.controller('route', function($rootScope, $scope, $http, $location,$document,
 	    
 	    $scope.$watch('shareroute.routeID', function (newValue, oldValue) {
 			if (newValue != oldValue) {
-				console.log("start trip time change:"+ newValue)
+				console.log("start trip time change:")
 				$scope.shareroute.routeID = newValue;
 			} 	
 			    

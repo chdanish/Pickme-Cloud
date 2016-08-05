@@ -2,9 +2,12 @@ package so.pickmeshare.service.Impl;
 
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +31,8 @@ public class ShareRouteServiceImpl implements  ShareRouteService{
 	
 	TimeZone tz = TimeZone.getDefault();
 	final Calendar calendar = Calendar.getInstance();
+	
+	
 
 	@Override
 	public void sharemyroute(ShareRouteDTO sdto, User activeUser, User toUser, Route route) throws ParseException {
@@ -41,6 +46,7 @@ public class ShareRouteServiceImpl implements  ShareRouteService{
 		pmu.setDeadlinetocommit(getDate(sdto.getCommitDeadlineDatetime()));
 		pmu.setTripstarttime_long(sdto.getStartTripDateTime());
 		pmu.setDeadlinetocommit_long(sdto.getCommitDeadlineDatetime());
+		pmu.setEsttimetoreachdestination(sdto.getStartTripDateTime()+route.getDuration());
 		pmu.setTimezone(TimeZone.getTimeZone("Etc/GMT"+getStrOffset(zoneoffset)));
 		pmu.pickmerequestto(toUser);
 		pmu.setStatus(Pickupreqstatus.ACTIVE);
@@ -70,6 +76,12 @@ public class ShareRouteServiceImpl implements  ShareRouteService{
 			return "";
 		}
 		return null;
+	}
+
+	@Override
+	public Iterable<Map<String, Object>> mysharedroutes(String username) {
+		
+		return pickmeupRepository.mysharedroutes(username);
 	}
 	
 }

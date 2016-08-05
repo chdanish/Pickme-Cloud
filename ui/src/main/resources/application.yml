@@ -122,6 +122,12 @@ zuul:
     share1:
       path: /shareroute/sharemyroute/**
       url: http://localhost:9000/resource/shareroute/sharemyroute
+    share2:
+      path: /shareroute/mysharedroutes/**
+      url: http://localhost:9000/resource/shareroute/mysharedroutes
+    mqtt:
+      path: /mqtt/login/**
+      url: http://localhost:9099/mqtt/login
 
      
 users:

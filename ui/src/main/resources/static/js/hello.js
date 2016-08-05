@@ -4,12 +4,16 @@ app.config(function($routeProvider, $locationProvider,$cookiesProvider, $httpPro
 
 	$routeProvider
 	.when('/home', {
-		templateUrl : 'home.html',
+		templateUrl : 'home',
 		controller : 'home'
 	})
 	.when('/route', {
 		templateUrl : 'route',
 		controller : 'route'
+	})
+	.when('/sharedroutes', {
+		templateUrl : 'sharedroutes',
+		controller : 'sharedroutes'
 	})
 	.when('/friend', {
 		templateUrl : 'friend',
@@ -23,7 +27,7 @@ app.config(function($routeProvider, $locationProvider,$cookiesProvider, $httpPro
 		templateUrl : 'find',
 		controller : 'find'
 	})
-	.otherwise('/');
+	.otherwise('/home');
 
 	/*.otherwise({
 	    redirectTo: '/home'

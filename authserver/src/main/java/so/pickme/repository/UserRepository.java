@@ -12,7 +12,7 @@ public interface UserRepository extends GraphRepository<User>{
 	 * @return the complete list of persons stored in the repository.
 	 */
 	@Query("Match (u:User)"+
-			"Where  u.username='saira'return u")
+			"Where  u.username={0} return u")
 	User findByUsername(String username);
 
 	/**

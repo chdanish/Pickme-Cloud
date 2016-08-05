@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -59,11 +60,11 @@ public class ShareRoute {
 		
 		List<Pickmeup> mypickupreqs = pickmeupRepository.checkBeforeNewPickup(username, sdto.getStartTripDateTime());
 		
-		if(mypickupreqs!=null){
+		if(mypickupreqs.iterator().hasNext()){
 			
 			for (Iterator<Pickmeup> iterator = mypickupreqs.iterator(); iterator.hasNext();) {
 				Pickmeup pickmeup = (Pickmeup) iterator.next();
-				System.out.println("Pickup request already setup with id: " + pickmeup.getId());
+				System.out.println("Pickup request already setup with id: " + pickmeup.toString());
 			}
 			
 			map.put("status", mypickupreqs);
@@ -88,6 +89,17 @@ public class ShareRoute {
 		return map;		
 		
 		
+	}
+	
+	 @RequestMapping(value="/mysharedroutes", method = RequestMethod.GET)
+	 public @ResponseBody Map<String, Object> mysharedroutes(Principal principal) throws ParseException {
+		System.out.println("Current time: " );
+		Map<String, Object> map = new LinkedHashMap<>();
+		
+		String username = SecurityUtils.getLoggedInUserName(principal);
+		Iterable<Map<String, Object>> pmu =shareRouteService.mysharedroutes(username);
+		map.put("status", pmu);
+		return map;
 	}
 	
 	

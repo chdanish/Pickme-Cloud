@@ -36,15 +36,40 @@ app.directive('durationPicker', ['dateFilter', '$timeout','infoService', functio
          var jqueryElm3 = $(elm.find(days));
          
          scope.$watch(function() {
+       
           return infoService.duration;
           }, function(newValue){
            console.log (newValue)
-           //var minValue  = jqueryElm1.attr( "value",50 );
-           for(var i= 0 ; i< newValue ; i++){
-            jqueryElm0.spinner('stepUp');
+           var dur= SecondsToddhhmmss(newValue);
+           if(jqueryElm0.spinner){
+        	   jqueryElm0.spinner( "value",String(dur.s ));
+               jqueryElm1.spinner( "value",String(dur.m ));
+               jqueryElm2.spinner( "value",String(dur.h ));
+               jqueryElm3.spinner( "value",String(dur.d ));
+               scope.secs= dur.s;
+               scope.mins= dur.m;
+               scope.hours= dur.h;
+               scope.days= dur.d;        	   
            }
+           
+           console.log("h: "+dur.h+" m: "+dur.m+" s: "+dur.s);
           });
          
+         //fore reference jqueryElm3.attr( "value",String(dur.d ));
+         var SecondsToddhhmmss = function(totalSeconds) {
+           var days    = Math.floor(totalSeconds / 86400);
+           var hours   = Math.floor((totalSeconds - (days  *86400)) / 3600);
+           var minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
+           var seconds = totalSeconds - (hours * 3600) - (minutes * 60);
+           // round seconds
+           seconds = Math.round(seconds * 100) / 100
+           return  {
+        	   d:days,
+        	   h:hours,
+        	   m:minutes,
+        	   s:seconds,
+        	   } 
+           }
          
          
          //min-value = 50;
@@ -105,7 +130,7 @@ app.directive('durationPicker', ['dateFilter', '$timeout','infoService', functio
          
 
 jqueryElm3.spinner({
-          min:1,
+          min:0,
           max:30,
            spin: function (event, ui) {
             scope.days = ui.value;

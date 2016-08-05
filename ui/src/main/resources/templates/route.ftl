@@ -4,10 +4,10 @@
 <div class="content mytitlediv"  >  
   
  <p> <h1 style="color: #ffd119; " ><strong>MyRoutes</strong></h1></p>
- 
+
  <!-- Collapse dir -->
-<div class="content mycolapse" ng-repeat="myroute in myroutes"  >  
-  <collapse class="Titan-One" title="{{myroute.title}}">
+<div class="content mycolapse" ng-if="myroute.title" ng-repeat="myroute in myroutes track by $index"  >  {{$index }}
+  <collapse class="Titan-One"  title="{{myroute.title}}">
    
   <div class="row">
 	  <div class="col-md-8 col-xs-8 col-sm-8 ">
@@ -15,19 +15,23 @@
 		    <p>Starting Address: {{myroute.startpointaddress}}</p>
 		    <p>Destination Address: {{myroute.destinationpointaddress}}</p>
     		<button type="button" class="btn btn-default" >Edit</button>
-			<button type="button" class="btn btn-default" ng-click="deleteroute(myroute.id)" >Delete</button>
+			<button type="button" class="btn btn-default" ng-click="deleteroute(myroute.id,$index)" >Delete</button>
 			<button type="button" class="btn btn-default" data-dismiss="modal"  data-toggle="modal" ng-click="setsharerouteID(myroute.id)" href="#myRouteShareModal" >Share</button><br></br>
 	  		<span></span>
 	  </div>
 	  <div class="col-md-4 col-xs-4 col-sm-4">
-	  		<!-- <img alt="Test map" src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:3%7Ccolor:blue%7geodesic:%7Cenc:g`}dHkoneAwj@f~@_Na@{DBcVuDiSaa@tkGs_MpEhA|EtAqMoD{HtC&key=AIzaSyBGRivLqFvv2O8SOCDbXgs2o4YaRlzIZOw"> -->
-	  		  <map-th mapid="{{myroute.id}}" dlat="{{myroute.destpointLAT}}" dlong="{{myroute.destpointLONG}}" slat="{{myroute.startpointLAT}}" slong="{{myroute.startpointLONG}}"></map-th>
+	  	<map-th mapid="{{myroute.id}}" dlat="{{myroute.destpointLAT}}" dlong="{{myroute.destpointLONG}}" slat="{{myroute.startpointLAT}}" slong="{{myroute.startpointLONG}}"></map-th>
 	  </div>
   </div>
 						
   </collapse>
 </div>
 <!-- Collapse dir -->
+<!-- Hidden button used to update Routes as angular executes $digest after ng-click automatically -->
+<div ng-hide="true">
+	<button type="button" id="loader" ng-click="loadroutes()" class="btn btn-default" >Edit</button>
+</div>
+
 </div>
 
 
@@ -101,7 +105,7 @@
      
         </div>
          <div class="modal-footer">
-         	<button type="button" class="btn btn-default" ng-disabled="!mySaveForm.routename.$valid " data-dismiss="modal"  ng-click="save()">Save</button>
+         	<button type="button" class="btn btn-default" ng-disabled="!mySaveForm.routename.$valid " data-dismiss="modal"  load-routes ng-click="save()">Save</button>
 			<!-- <button type="button" class="btn btn-default" ng-disabled="!mySaveForm.routename.$valid || !mySaveForm.duration.$valid" data-dismiss="modal"  ng-click="save()">Save</button> -->
 			<button type="button" class="btn btn-default" data-dismiss="modal"  data-toggle="modal" href="#myMapModal">Edit route</button>
 			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

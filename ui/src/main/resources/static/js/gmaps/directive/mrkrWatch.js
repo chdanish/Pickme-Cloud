@@ -37,8 +37,6 @@ app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionServic
 		        googleMap.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById("mapnavbar"));
 		        
 		        google.maps.event.addListener(googleMap, 'click', function(e) {
-		        	console.log("click listner");
-		        	
 		        	if ( markerService.markers.length<=1){
 		        		var marker1 = markerService.secureAddMarker(e,googleMap);		        			        		 
 		        	}
@@ -56,7 +54,7 @@ app.directive('demoMap',function(Map,mapdisplaySER,markerService,directionServic
 		        
 		        $('#myMapModal').on('show.bs.modal', function (e) {
 		        	$location.path('/route');
-		        	 stopTime = $interval(scope.$digest(),1000);
+		        	 //stopTime = $interval(scope.$digest(),10000);
 		        	 if (google.maps && googleMap) {
 		        		 
 		                 setTimeout(mapdisplaySER.resizeMap(googleMap), 300);
