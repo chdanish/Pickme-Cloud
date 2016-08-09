@@ -41,15 +41,15 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-		<dependency>
+		 <dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>
 			<version>1.1.1.RELEASE</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-social-facebook</artifactId>
@@ -129,11 +129,12 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			</dependency>
-		<dependency>
+		</dependency>
+		<!-- In case of wro error build the project by commenting  webjar bootstap dependency and than again by un-commenting -->
+		<!-- <dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 	
 	<dependencyManagement>

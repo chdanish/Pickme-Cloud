@@ -1,0 +1,11 @@
+
+duration-picker  .ui-spinner-up {
+ position: relative;
+  top: -5px;
+  left: -16px;
+}
+duration-picker  .ui-spinner-down {
+  position: relative;
+  top: 6px;
+  right: 30px;
+}

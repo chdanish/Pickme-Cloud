@@ -211,6 +211,7 @@ html, body,.map.win  {
 	overflow: auto;
 	height: 100%;
 	width: 100%;
+
 }
 
 #myMapModal {
@@ -225,8 +226,32 @@ html, body,.map.win  {
 }
 
 .bg {	
-	 background: url("image/tile-iconfont.svg")  ;
-	 background-color: #b7b7b7;
+	 background: url("image/method-draw-image.svg")  ;
+	 background-color: #eaddbf;
 	}
 	
+.relative {
+  position: relative;
+  width: 90%;
+  height: 100%;
+  margin-top: 2%;
+  margin-left:2%;
+  box-shadow:4px 4px 5px 2px #dbc8ae;
+}
+.leftabsolute{border-radius: 15px 0px 0px 50px;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 20%;
+  height: 80%;
+background:#ddceb9;}
+.contentabsolute{border-radius: 0px 10px 10px 0px;
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+  width: 80%;
+
+  
+  /* overflow-y: scroll; */
+  }	
 

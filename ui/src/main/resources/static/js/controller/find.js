@@ -9,24 +9,27 @@ app.controller('find', function($rootScope, $scope, $http, $location,$document,$
 	$scope.results = "";
 	
 	$scope.finduser = function (){
-		console.log("current value: "+$scope.textvalue);
+		console.log("current value: "+$scope.myInput);
 		
 		 if ($scope.selectedValue === "Username") {
-		  $http.post('findfriends/findfriendbyusername/'+$scope.textvalue, {}).success(function(data) {
+			 console.log("username function" );
+			 
+		  $http.post('findfriends/findfriendbyusername/'+$scope.myInput, {}).success(function(data) {
 			   console.log(data);
 			   $scope.results =[];
 			   if(data.status != null){
-				   
 				   $scope.results = data;
 			   }
-			   console.log($scope.results);
+			   console.log("My recieved"+$scope.results);
 			  }).error(function(data) {
 			   console.log(data);
 			  });
 		 }
 		  
 		  if ($scope.selectedValue === "Name") {
-			  $http.post('findfriends/findfriendbyname/'+$scope.textvalue, {}).success(function(data) {
+			  console.log("name function: " );
+			  
+			  $http.post('findfriends/findfriendbyname/'+$scope.myInput, {}).success(function(data) {
 				   console.log(data);
 				   if(data.Status != null){
 					   $scope.results =[];
@@ -43,8 +46,8 @@ app.controller('find', function($rootScope, $scope, $http, $location,$document,$
 		
 	}
 	
-	$scope.addfriendreq = function (id){
-		console.log("addfriend value: "+$scope.textvalue);
+	$scope.sendfriendreq = function (id){
+		console.log("addfriend value: "+$scope.myInput);
 		
 		  $http.post('friendrequest/addfriendreq/'+id, {}).success(function(data) {
 			   console.log(data);

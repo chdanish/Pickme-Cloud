@@ -1,0 +1,26 @@
+.gridListdemoBasicUsage md-grid-list {
+  margin: 8px; }
+.gridListdemoBasicUsage .gray {
+  background: #f5f5f5; }
+.gridListdemoBasicUsage .green {
+  background: #b9f6ca; }
+.gridListdemoBasicUsage .yellow {
+  background: #ffff8d; }
+.gridListdemoBasicUsage .blue {
+  background: #84ffff;
+  border-radius: 25px;
+   }
+.gridListdemoBasicUsage .purple {
+  background: #b388ff; }
+.gridListdemoBasicUsage .red {
+  background: #8bdaf3; 
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  }
+.gridListdemoBasicUsage md-grid-tile {
+  transition: all 400ms ease-out 50ms; }
+  
+ md-grid-tile-header {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  }
