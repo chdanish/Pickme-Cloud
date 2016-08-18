@@ -17,7 +17,7 @@ security:
   user:
     name: user
     password: password
-  ignored: /,/css/**,/js/**,/uaa,/uaa/**,/uaa/**/**,/uaa/**/**/**,/**/*.html,/logoutall,/jsx/**,/wro,/wro/**,/uaa/oauth/token,/uaa/oauth/token/**
+  ignored: /css/**,/js/**,/uaa,/uaa/**,/uaa/**/**,/uaa/**/**/**,/**/*.html,/logoutall,/jsx/**,/wro,/wro/**,/uaa/oauth/token,/uaa/oauth/token/**
 
 spring:
   mvc:

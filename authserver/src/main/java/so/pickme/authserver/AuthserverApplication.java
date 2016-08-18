@@ -1,8 +1,14 @@
 package so.pickme.authserver;
 
 
+import java.io.IOException;
 import java.security.KeyPair;
 import java.security.Principal;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -20,6 +26,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -28,10 +35,15 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 /*import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -119,6 +131,10 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	        repository.setHeaderName("X-XSRF-TOKEN");
 	        return repository;
 	    }
+	    @Bean
+	    public RequestCache requestCache(){
+	    	return new HttpSessionRequestCache();
+	    }
 
 	    @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
@@ -192,26 +208,25 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 		
 		@Autowired
 		private Propertiesimport pimport;
+		@Autowired
+		private RequestCache requestCache;
+		
+	
+		AuthenticationSuccessHandler savedredir = (req,res,auth)->{System.out.println("Checking redirection:");
+		if(requestCache.getRequest(req, res) != null){ res.sendRedirect(requestCache.getRequest(req, res).getRedirectUrl().replace("localhost:9998", "localhost:8080"));}
+		else if(requestCache.getRequest(req, res) == null){res.sendRedirect("http://localhost:8080/login");}return;};
+		
+		AuthenticationEntryPoint authentry = (req,res,auth)->{res.sendRedirect("http://localhost:8080/uaa/login");return;};
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-
-			System.out.println("Fetching proxy address... :"+pimport.getProxy());
-			pimport.setProxy(pimport.getProxy());
-			System.out.println("Fixing proxy address... :" + Propertiesimport.getPrx());
-			
-			// @formatter:off
 			http
-			//.addFilterBefore(corsfilter(), WebAsyncManagerIntegrationFilter.class)
-			//.csrf().ignoringAntMatchers("/login").and()
 			.exceptionHandling()
-			.authenticationEntryPoint(new UnauthorizedEntryPoint())
-			.and()
-			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logoutall")).invalidateHttpSession(true)
+			.authenticationEntryPoint(authentry)
 			.and()
 				.formLogin().loginPage("/login").permitAll()
-				//.successHandler(new CustomAuthenticationHandler())
-				.failureUrl("http://localhost:8080/uaa/login")
+				.successHandler(savedredir)
+				.failureUrl("http://localhost:8080/login")
 			.and()
 				.requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
 			.and()
@@ -219,8 +234,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 				.and().addFilterAfter(new CsrfFilter(csrfTokenRepository()), CsrfFilter.class)
 	            .csrf().csrfTokenRepository(csrfTokenRepository()).and()
 				;
-			// @formatter:on
-		
+
 		}
 		
 		

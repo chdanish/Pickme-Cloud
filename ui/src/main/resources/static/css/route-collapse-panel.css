@@ -10,7 +10,6 @@
   padding: 5px;
 }
 .collapsible-jq > header {
-  border-bottom: 1px solid green;
   cursor: pointer;
 }
 .collapsible-jq > header h4 {
@@ -18,7 +17,8 @@
 }
 
 .collapsible {
-  border: 1px solid gray;
+  border-radius: 15px 15px 15px 15px;
+  border: 1px solid #ffff80;
 }
 .collapsible > section {
   overflow: hidden;
@@ -34,16 +34,18 @@
   max-height: 200px;
 }
 .collapsible > header {
-  border-bottom: 1px solid green;
+	border-radius: 15px 15px 15px 15px;
   cursor: pointer;
 }
 .collapsible > header h4 {
+	border-radius: 15px 15px 15px 15px;
   background: #668cff;
   margin: 2px;
   padding-left: 15px;
 }
 
 .Titan-One {
+  border-radius: 15px 15px 15px 15px;
   font-family: 'Raleway', sans-serif;
   font-weight: 900;
   background: #668cff;
@@ -55,7 +57,7 @@
 .mycolapse {
 	font-family: 'Raleway', sans-serif;
 	border-radius: 15px 50px 30px;
-	background: #80bfff;
+	background: #5a81b1;;
 	padding: 20px;
 	opacity: 1.0;
     top-padding=5px;

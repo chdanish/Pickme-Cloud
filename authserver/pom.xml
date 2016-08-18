@@ -126,10 +126,10 @@
 		    <groupId>org.webjars</groupId>
 		    <artifactId>webjars-locator</artifactId>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-		</dependency>
+		</dependency> -->
 		<!-- In case of wro error build the project by commenting  webjar bootstap dependency and than again by un-commenting -->
 		<!-- <dependency>
 			<groupId>org.webjars</groupId>

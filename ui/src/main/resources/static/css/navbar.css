@@ -243,15 +243,17 @@ html, body,.map.win  {
   bottom: 0px;
   left: 0;
   width: 20%;
-  height: 80%;
-background:#ddceb9;}
+  height: 100%;
+background:#5a81b1;}
 .contentabsolute{border-radius: 0px 10px 10px 0px;
-  position: absolute;
+
+  position: inherit;
   bottom: 10%;
   right: 0;
-  width: 80%;
+  width: 100%;
+  padding-left: 20%;
 
   
   /* overflow-y: scroll; */
-  }	
+  }
 

@@ -39,6 +39,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -183,17 +184,16 @@ public class UiApplication {
 	@EnableOAuth2Sso
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 	protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+		AuthenticationEntryPoint authentry = (req,res,auth)->{res.sendRedirect("http://localhost:8080/login");return;};
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
-			http.formLogin().loginPage("/uaa/login").permitAll()
-			.and()
-				.httpBasic()
-			.and()
-				.logout()
+			http
+				.exceptionHandling()
+				.authenticationEntryPoint(authentry)
 			.and()
 				.authorizeRequests()
-					.antMatchers("/index.html", "/home.html", "/").permitAll()
+					.antMatchers("/index.html", "/home.html").permitAll()
 					.anyRequest().authenticated()
 			.and()
 				.csrf().csrfTokenRepository(csrfTokenRepository())
